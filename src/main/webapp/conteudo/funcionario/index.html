@@ -1,0 +1,35 @@
+<div class="nav-content" style="background-color:#4c9689;">
+    <ul class="tabs tabs-transparent">
+        <li class="tab"><a onclick="acessa_modulo('funcionario');">Inicio</a></li>
+        <li class="tab"><a onclick="acessa_sub_modulo('create');">Novo Funcion�rio</a></li>
+    </ul>
+</div>
+<div class="s12" id="conteudo_submenu">
+    <div class="row" align="center" style="margin-top: 2%;">
+    	<div class="col s1"> <!-- espaçador --> </div>
+    	<div class="col s10">
+    		<table class="bordered striped">
+				<thead>
+					<tr>
+						<th>Nome / Razão Social</th>
+						<th width="25%">E-mail</th>
+						<th width="15%">Telefone</th>
+						<th width="10%">Opções</th>
+					</tr>
+				</thead>
+		        <tbody>
+					<tr>
+						<td>Teste 1</td>
+						<td>Teste</td>
+						<td align="center">Teste</td>
+						<td align="center">
+							<img title="Alterar Funcionário" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(9)">
+							<img title="Excluir Funcionário" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(9)">
+						</td>
+					</tr>
+		        </tbody>
+			</table>
+    	</div>
+    	<div class="col s1"> <!-- espaçador --> </div>
+    </div>
+</div>

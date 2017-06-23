@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Batgrupo</title>
+        <link rel="stylesheet" href="css/padrao.css">
+		<link rel="stylesheet" href="css/load_index.css">
+		<link rel="stylesheet" href="css/materialize.min.css">
+	</head>
+	<body>
+		<div class="loader" id="loader">
+			<div id="animate" style="margin-top: 7%;">
+			    <ol>
+			    <li class="run time">
+			        <div class="stage">
+			            <div id="head-1"></div>
+			            <div id="head-2"></div>
+			            <div id="headear"></div>
+			            <div id="headear-radius"></div>
+			            <div id="white-square"></div>
+			            <div id="face-left"></div>
+			            <div id="face-right"></div>
+			            <div id="face"></div>
+			            <div id="brow-right"></div>
+			            <div id="eye-left"></div>
+			            <div id="eye-right"></div>
+			            <div id="brow-left"></div>
+			            <div id="back_mouse"></div>
+			            <div id="circle1"></div>
+			            <div id="circle2"></div>
+			            <div id="circle3"></div>
+			            <div id="circle4"></div>
+			            <div id="ear"></div>
+			            <div id="ear-square"></div>
+			        </div> 
+				</li>
+			</ol>
+		</div> 
+		</div>
+    </body>
+    <form action="conteudo/home/index.html" name="form_inicio"></form>
+    <script>
+    	load_stop();
+    	function load_stop(){
+    		setTimeout(function(){ document.getElementById("loader").style.display = "none"; document.form_inicio.submit(); }, 10000);
+    	}
+    </script>
+</html>

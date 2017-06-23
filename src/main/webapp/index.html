@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+		<title>Batgrupo</title>
+        <link rel="stylesheet" href="css/padrao.css">
+		<link rel="stylesheet" href="css/materialize.min.css">
+	</head>
+	<body>
+		<div id="container" class="row">
+            <div class="s12">
+                <nav>
+                    <div class="nav-wrapper" style="background-color:#2980b9;">
+                        <img src="media/icons/icon.png" width="90" height="65">
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li class="menu_superior active"><a href="">Início</a></li>
+                        <li class="menu_superior" id="cliente"><a onclick="acessa_modulo('cliente');">Clientes</a></li>
+                        <li class="menu_superior" id="fornecedor"><a onclick="acessa_modulo('fornecedor');">Fornecedores</a></li>
+                        <li class="menu_superior" id="funcionario"><a onclick="acessa_modulo('funcionario');">Funcionários</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="s12" id="conteudo_menu">
+            	<!-- conteúdo será constantemente substituido por ajax -->
+                <div class="img_index_home_container">
+                    <img src="media/images/bemvindo.png" width="750" height="200">
+                </div>
+            </div>
+		</div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script src="build/main.bundle.js"> </script>
+	</body>
+	<footer class="page-footer footer_kaio" style="background-color:#4c9689 !important;">
+        <div class="footer-copyright" align="center" style="background-color: #2980b9 !important;">
+            <div class="container" align="center">
+                © 2017 Copyright Alunos TAP/RAD TADS 5º Semestre
+            </div>
+        </div>
+    </footer>
+</html>
