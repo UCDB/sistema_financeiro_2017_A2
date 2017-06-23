@@ -16,34 +16,31 @@ import repository.FuncionarioRepositoryBanco;
 @WebServlet(urlPatterns = "/funcionario")
 public class FuncionarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	FuncionarioRepositoryBanco funcRb = new FuncionarioRepositoryBanco();
+	FuncionarioRepositoryBanco frb = new FuncionarioRepositoryBanco();
 	private JsonHelper jsonHelper = new JsonHelper();
-	
+
 	@Override
 	protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String 	nome 		= req.getParameter("nome");
+		String 	nome 		= req.getParameter("nome_razao");
 		String	endereco 	= req.getParameter("endereco");
-		String	cpf 		= req.getParameter("cpf");
-		String	rg 			= req.getParameter("rg");
 		String	telefone 	= req.getParameter("telefone");
-		String	cep 		= req.getParameter("cep");
 		String	email 		= req.getParameter("email");
-		String	infoAdc		= req.getParameter("info_add");
+		String	cpf 		= req.getParameter("cpf_cnpj");
+		String	rg 			= req.getParameter("rg_ie");
+		String	cep 		= req.getParameter("cep");
 		String	contato		= req.getParameter("contato");
+		String	info_add	= req.getParameter("info_add");
 
-		Funcionario f = new Funcionario(nome, endereco, cpf, rg, telefone, cep, email, infoAdc, contato);
-		funcRb.cadastrar(f);
+		Funcionario f = new Funcionario(nome, endereco, telefone, email, cpf, rg, cep, contato, info_add);
+		frb.cadastrar(f);
 
 		try {
 			resp.getWriter().println(jsonHelper.gerarJson(f));
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -52,53 +49,47 @@ public class FuncionarioController extends HttpServlet {
 		String json;
 		String idb = req.getParameter("id");
 
-		if(idb.equals("all")){
+		if( idb.equals("all") ){
 		    try {
-				json = jsonHelper.gerarJsonLista(funcRb.buscarTodos());
+				json = jsonHelper.gerarJsonLista(frb.buscarTodos());
 				resp.getWriter().print(json);
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			idb = req.getParameter("id");
-			int id = Integer.parseInt(idb);
+			int id = Integer.parseInt(req.getParameter("id"));
 			try {
-				json = jsonHelper.gerarJson(funcRb.buscarPorId(id));
+				json = jsonHelper.gerarJson(frb.buscarPorId(id));
 				resp.getWriter().print(json);
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 		}
 	}
 
 	public void doPut (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		int idFunc = Integer.parseInt(req.getParameter("id"));
-
+		int id 				= Integer.parseInt(req.getParameter("id"));
 		String 	nome 		= req.getParameter("nome");
 		String	endereco 	= req.getParameter("endereco");
+		String	telefone 	= req.getParameter("telefone");
+		String	email 		= req.getParameter("email");
 		String	cpf 		= req.getParameter("cpf");
 		String	rg 			= req.getParameter("rg");
-		String	telefone 	= req.getParameter("telefone");
 		String	cep 		= req.getParameter("cep");
-		String	email 		= req.getParameter("email");
-		String	infoAdc		= req.getParameter("info_add");
 		String	contato		= req.getParameter("contato");
+		String	info_add		= req.getParameter("info_add");
 
-		Funcionario func = new Funcionario(nome, endereco, cpf, rg, telefone, cep, email, infoAdc, contato);
-		func.setId(idFunc);
-		funcRb.alterar(func);
+		Funcionario func = new Funcionario(nome, endereco, telefone, email, cpf, rg, cep, contato, info_add);
+		func.setId(id);
+		frb.alterar(func);
 	}
 
 	public void doDelete (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		int id = Integer.parseInt(req.getParameter("id"));
-		funcRb.excluir(id);
+		frb.excluir(id);
 	}
 }

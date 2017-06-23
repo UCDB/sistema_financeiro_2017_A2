@@ -1,12 +1,12 @@
 "use strict";
 
 var xhttp = new XMLHttpRequest();
-
 var path_principal = "";
-
 var id_sendo_alterado = "";
 
 function acessa_modulo(caminho) {
+	id_sendo_alterado = "";
+
 	xhttp.onreadystatechange = function () {
 		document.getElementById("conteudo_menu").innerHTML = this.responseText;
 	};
@@ -29,7 +29,17 @@ function acessa_sub_modulo(caminho) {
 }
 
 function carregar_tabela_principal() {
-	//alert('Carregar Tabela com Dados de '+path_principal);
+	/*
+ xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	console.log(this.responseText);
+        	// manipular this.responseText que possui o jSon com os resultados
+        }
+    };	
+ 
+    xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id=all", true);
+ xhttp.send(); 
+ */
 }
 
 var objeto = new function () {
@@ -78,18 +88,22 @@ var objeto = new function () {
 			acessa_modulo(path_principal);
 		} else {
 			// FAZENDO
-			acessa_sub_modulo('update');
-
 			id_sendo_alterado = identificador;
+
+			var retorno = "";
 
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
-					console.log(this.responseText);
+					retorno = this.responseText;console.log(this.responseText);
 				}
 			};
 
-			xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + id_sendo_alterado, true);
+			xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
 			xhttp.send();
+
+			acessa_sub_modulo('update');
+
+			console.log("Retorno: " + retorno);
 		}
 	};
 
@@ -98,7 +112,7 @@ var objeto = new function () {
 			xhttp.open("DELETE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send("id=" + identificador);
-			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
 		}
 	};
 }();

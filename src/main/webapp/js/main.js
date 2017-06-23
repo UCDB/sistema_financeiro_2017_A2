@@ -1,10 +1,10 @@
 let xhttp = new XMLHttpRequest();
-
-let path_principal = "";
-
-let id_sendo_alterado = "";
+var path_principal = "";
+var id_sendo_alterado = "";
 
 function acessa_modulo(caminho){
+	id_sendo_alterado = "";
+
     xhttp.onreadystatechange = function() { document.getElementById("conteudo_menu").innerHTML = this.responseText; };
     xhttp.open("GET", "./conteudo/"+caminho+"/index.html", true);
     xhttp.send();
@@ -23,20 +23,30 @@ function acessa_sub_modulo(caminho){
 }
 
 function carregar_tabela_principal(){
-	//alert('Carregar Tabela com Dados de '+path_principal);
+	/*
+	xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	console.log(this.responseText);
+        	// manipular this.responseText que possui o jSon com os resultados
+        }
+    };	
+
+    xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id=all", true);
+	xhttp.send(); 
+	*/
 }
 
 var objeto = new function(){
 	this.create = function(){
-		let nome_razao	= document.getElementById("nome_razao").value;
-		let endereco 	= document.getElementById("endereco").value;
-		let telefone 	= document.getElementById("telefone").value;
-		let email 		= document.getElementById("email").value;
-		let cpf_cnpj	= document.getElementById("cpf_cnpj").value;
-		let rg_ie 		= document.getElementById("rg_ie").value;
-		let cep 		= document.getElementById("cep").value;
-		let contato 	= document.getElementById("contato").value;
-		let info_add 	= document.getElementById("info_add").value;
+		var nome_razao	= document.getElementById("nome_razao").value;
+		var endereco 	= document.getElementById("endereco").value;
+		var telefone 	= document.getElementById("telefone").value;
+		var email 		= document.getElementById("email").value;
+		var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
+		var rg_ie 		= document.getElementById("rg_ie").value;
+		var cep 		= document.getElementById("cep").value;
+		var contato 	= document.getElementById("contato").value;
+		var info_add 	= document.getElementById("info_add").value;
 
 		if( nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '' ){
 			xhttp.open("POST", "/sistema_financeiro_2017_A/"+path_principal, true);
@@ -52,15 +62,15 @@ var objeto = new function(){
 
 	this.update = function(identificador){
 		if( id_sendo_alterado != "" ){ // PRONTO
-			let nome_razao	= document.getElementById("nome_razao").value;
-			let endereco 	= document.getElementById("endereco").value;
-			let telefone 	= document.getElementById("telefone").value;
-			let email 		= document.getElementById("email").value;
-			let cpf_cnpj	= document.getElementById("cpf_cnpj").value;
-			let rg_ie 		= document.getElementById("rg_ie").value;
-			let cep 		= document.getElementById("cep").value;
-			let contato 	= document.getElementById("contato").value;
-			let info_add 	= document.getElementById("info_add").value;
+			var nome_razao	= document.getElementById("nome_razao").value;
+			var endereco 	= document.getElementById("endereco").value;
+			var telefone 	= document.getElementById("telefone").value;
+			var email 		= document.getElementById("email").value;
+			var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
+			var rg_ie 		= document.getElementById("rg_ie").value;
+			var cep 		= document.getElementById("cep").value;
+			var contato 	= document.getElementById("contato").value;
+			var info_add 	= document.getElementById("info_add").value;
 
 			xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal, true);
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -70,19 +80,22 @@ var objeto = new function(){
 
 			acessa_modulo(path_principal);
 		}else{ // FAZENDO
-			acessa_sub_modulo('update');
-
 			id_sendo_alterado = identificador;
+			
+			var retorno = "";
 			
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                	console.log(this.responseText);
+                	retorno = this.responseText; console.log(this.responseText);
                 }
             };	
-            
-            xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id="+id_sendo_alterado, true);
+
+            xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
 			xhttp.send();
-		
+
+			acessa_sub_modulo('update');
+
+			console.log("Retorno: "+retorno);
 		}
 	}
 
@@ -91,7 +104,7 @@ var objeto = new function(){
 			xhttp.open("DELETE", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xhttp.send("id="+identificador)
-			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
 		}
 	}
 }

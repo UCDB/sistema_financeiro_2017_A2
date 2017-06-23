@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
 import model.Cliente;
-import model.Funcionario;
 import repository.ClienteRepositoryBanco;
-import repository.FuncionarioRepositoryBanco;
 
 @WebServlet(urlPatterns = "/cliente")
 public class ClienteController extends HttpServlet {
@@ -25,17 +23,17 @@ public class ClienteController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String nome 	= req.getParameter("nome");
-		String endereco = req.getParameter("endereco");
-		String cpf 		= req.getParameter("cpf");
-		String rg 		= req.getParameter("rg");
-		String telefone = req.getParameter("telefone");
-		String cep 		= req.getParameter("cep");
-		String contato 	= req.getParameter("contato");
-		String info_add	= req.getParameter("info_add");
-		String email 	= req.getParameter("email");
+		String nome_razao	= req.getParameter("nome_razao");
+		String endereco 	= req.getParameter("endereco");
+		String telefone 	= req.getParameter("telefone");
+		String email 		= req.getParameter("email");
+		String cpf_cpnj 	= req.getParameter("cpf_cpnj");
+		String rg_ie 		= req.getParameter("rg_ie");
+		String cep 			= req.getParameter("cep");
+		String contato 		= req.getParameter("contato");
+		String info_add		= req.getParameter("info_add");
 
-		Cliente cl = new Cliente(nome, endereco, cpf, rg, telefone, cep, contato, info_add, email);
+		Cliente cl = new Cliente(nome_razao, endereco, telefone, email, cpf_cpnj, rg_ie, cep, contato, info_add);
 		crb.cadastrar(cl);
 
 		try {
@@ -54,23 +52,23 @@ public class ClienteController extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Integer id 		= Integer.parseInt(req.getParameter("id"));
-		String nome 	= req.getParameter("nome");
-		String endereco = req.getParameter("endereco");
-		String cpf 		= req.getParameter("cpf");
-		String rg 		= req.getParameter("rg");
-		String telefone = req.getParameter("telefone");
-		String cep 		= req.getParameter("cep");
-		String contato 	= req.getParameter("contato");
-		String info 	= req.getParameter("info_add");
-		String email 	= req.getParameter("email");
+		Integer id 			= Integer.parseInt(req.getParameter("id"));
+		String nome_razao 	= req.getParameter("nome_razao");
+		String endereco 	= req.getParameter("endereco");
+		String telefone 	= req.getParameter("telefone");
+		String email 		= req.getParameter("email");
+		String cpf_cnpj 	= req.getParameter("cpf_cnpj");
+		String rg_ie 		= req.getParameter("rg_ie");
+		String cep 			= req.getParameter("cep");
+		String contato 		= req.getParameter("contato");
+		String info_add 	= req.getParameter("info_add");
 
-		Cliente cl = new Cliente(nome,endereco,cpf,rg,telefone,cep,contato,info,email);
+		Cliente cl = new Cliente(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 		cl.setId(id);
 		
 		crb.alterar(cl);
 	}
-	
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json;
 		String idb = req.getParameter("id");
