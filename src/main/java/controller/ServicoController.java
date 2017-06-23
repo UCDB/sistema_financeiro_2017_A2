@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
+import model.Caixa;
 import model.Servico;
 import repository.ServicoRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/servico")
+@WebServlet(urlPatterns = "/servcontroller")
 public class ServicoController extends HttpServlet{
 
-
-	private static final long serialVersionUID = 1L;
 		private ServicoRepositoryBanco servicoRepository = new ServicoRepositoryBanco();
 		private JsonHelper jsonHelper = new JsonHelper();
 		
@@ -42,7 +41,7 @@ public class ServicoController extends HttpServlet{
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			String json;			
 			try {				
-				json = jsonHelper.gerarJsonLista(servicoRepository.buscarTodos());
+				json = jsonHelper.gerarJson(servicoRepository.buscarTodos());
 				resp.getWriter().print(json);
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 				
@@ -53,34 +52,9 @@ public class ServicoController extends HttpServlet{
 		
 		@Override
 		protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			Integer idFunc = Integer.parseInt(req.getParameter("idfunc"));
-			Integer idServ = Integer.parseInt(req.getParameter("idserv"));			
-			String descricao = req.getParameter("descricao");
-			String tipo = req.getParameter("tipo");
-			Double valorServico = Double.parseDouble(req.getParameter("valorservico"));
-			Double valorMax = Double.parseDouble(req.getParameter("valormax"));
-			Double valorMin = Double.parseDouble(req.getParameter("valormin"));			
+			Servico servic = (Servico) RottaUtils.populaReq(new Servico(), req.getParameterMap());
 			
-			Servico servico = new Servico();
-			
-			if (idFunc != null ){
-				servico.setId_funcionario(idFunc);
-			}
-			if (descricao != null){
-				servico.setDescricao(descricao);
-			}
-			
-			if (valorServico != null ){
-				servico.setValorservico(valorServico);
-			}
-			if (valorMax != null ){
-				servico.setValormaximo(valorMax);
-			}
-			if (valorMin != null ){
-				servico.setValorminimo(valorMin);
-			}	
-			
-			servicoRepository.alterar(servico);
+			servicoRepository.alterar(servic);
 		
 		}
 		

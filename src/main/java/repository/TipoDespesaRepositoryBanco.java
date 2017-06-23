@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.TipoDespesa;
+import model.TipoServico;
 
 public class TipoDespesaRepositoryBanco {
 	private static Connection conexao = ConexaoFactory.criarConexao();
@@ -31,6 +32,8 @@ public class TipoDespesaRepositoryBanco {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			
 			ps.setString(1, tipodespesa.getDescricao());
+			ps.setInt(2, tipodespesa.getId_tipoDespesa());
+			
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -52,27 +55,27 @@ public class TipoDespesaRepositoryBanco {
 		}
 	}
 	public List<TipoDespesa> buscarTodos() {
-		
 		List<TipoDespesa> lista = new ArrayList<>();
 
 		try {			
-			String sql = "select * from tipo_despesa order by id_tipodespesa";
+			String sql = "select * from tipo_servico order by id_tipodespesa";
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {
 				
-				Integer id = result.getInt("id_tipodespesa");				
+				Integer id_tipoDespesa = result.getInt("id_tipodespesa");				
 				String descricao = result.getString("descricao");
 				
-				TipoDespesa tipoDespesa = new TipoDespesa(descricao);
-				tipoDespesa.setId_tipoDespesa(id);
+				TipoDespesa tipo_Despesa = new TipoDespesa(descricao);
+				
 
-				lista.add(tipoDespesa);
+				lista.add(tipo_Despesa);
 
 			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -18,15 +18,15 @@ public class Produto {
 	private Double profundidade;
 	private Integer id_medidaproduto;
 	private Integer id_tipoproduto;
-	private Integer id_caixa;
+	private Integer id_funcionario;
 	private String validade;
 	
 	public Produto(){}
 
-	public Produto( String descricao, String codbarras, Integer id_fornecedor, Double precocusto,
+	public Produto(String descricao, String codbarras, Integer id_fornecedor, Double precocusto,
 			Double precovenda, Double precominvenda, Double precomaxvenda, Double comissaovenda, Double qtdestoque,
 			Double qtdminestoque, Double altura, Double peso, Double largura, Double profundidade,
-			Integer id_medidaproduto, Integer id_tipoproduto, Integer id_caixa, String validade) {				
+			Integer id_medidaproduto, Integer id_tipoproduto, Integer id_funcionario, String validade) {				
 		this.descricao = descricao;
 		this.codbarras = codbarras;
 		this.id_fornecedor = id_fornecedor;
@@ -43,7 +43,7 @@ public class Produto {
 		this.profundidade = profundidade;
 		this.id_medidaproduto = id_medidaproduto;
 		this.id_tipoproduto = id_tipoproduto;
-		this.id_caixa = id_caixa;
+		this.id_funcionario = id_funcionario;
 		this.validade = validade;
 	}
 
@@ -183,12 +183,12 @@ public class Produto {
 		this.id_tipoproduto = id_tipoproduto;
 	}
 
-	public Integer getId_caixa() {
-		return id_caixa;
+	public Integer getId_funcionario() {
+		return id_funcionario;
 	}
 
-	public void setId_caixa(Integer id_caixa) {
-		this.id_caixa = id_caixa;
+	public void setId_funcionario(Integer id_funcionario) {
+		this.id_funcionario = id_funcionario;
 	}
 
 	public String getValidade() {
@@ -198,4 +198,16 @@ public class Produto {
 	public void setValidade(String validade) {
 		this.validade = validade;
 	}
+	
+	
+
+	
+	
+	
+
+	
+
+	
+	
+	
 }

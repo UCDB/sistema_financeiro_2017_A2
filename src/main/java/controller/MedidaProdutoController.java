@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
-import model.Medida_produto;
+import model.MedidaProduto;
+import model.TipoDespesa;
 import repository.MedidaProdutoRepositoryBanco;
 import utils.RottaUtils;
 
 
 
-@WebServlet(urlPatterns = "/medidaproduto")
+@WebServlet(urlPatterns = "/medidaprodutocontroller")
 public class MedidaProdutoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private MedidaProdutoRepositoryBanco medpro = new MedidaProdutoRepositoryBanco();
+	MedidaProdutoRepositoryBanco medpro = new MedidaProdutoRepositoryBanco();
 	private JsonHelper jsonHelper = new JsonHelper();
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		Medida_produto m = (Medida_produto) RottaUtils.populaReq(new Medida_produto(), req.getParameterMap());
+		MedidaProduto m = (MedidaProduto) RottaUtils.populaReq(new MedidaProduto(), req.getParameterMap());
 		medpro.cadastrar(m);
 		
 		try {
@@ -47,17 +48,17 @@ public class MedidaProdutoController extends HttpServlet {
 		
 		if(idb.equals("all")){
 			try {
-				json = jsonHelper.gerarJsonLista(medpro.buscarTodos());
+				json = jsonHelper.gerarJson(medpro.buscarTodos());
 				resp.getWriter().println(json);
 			}  catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} /*else {
+		} else {
 			idb = req.getParameter("id");
 			int id = Integer.parseInt(idb);
 			try {
-				json= jsonHelper.gerarJsonLista(medpro.buscarPorId(id));
+				json= jsonHelper.gerarJson(medpro.buscarPorId(id));
 				resp.getWriter().println(json);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
@@ -69,11 +70,11 @@ public class MedidaProdutoController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	public void doPut (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Medida_produto m = (Medida_produto) RottaUtils.populaReq(new Medida_produto(), req.getParameterMap());
+		MedidaProduto m = (MedidaProduto) RottaUtils.populaReq(new MedidaProduto(), req.getParameterMap());
 		
 		medpro.alterar(m);
 		 

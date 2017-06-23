@@ -10,16 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
+import model.Produto;
+import model.Servico;
 import model.TipoServico;
+import repository.ServicoRepositoryBanco;
 import repository.TipoServicoRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/tiposervico")
+@WebServlet(urlPatterns = "/tiposervicocontroller")
 public class TipoServicoController extends HttpServlet{
 	
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TipoServicoRepositoryBanco tipoServicoRepository = new TipoServicoRepositoryBanco();
+	private TipoServicoRepositoryBanco tiposervicoRepository = new TipoServicoRepositoryBanco();
 	private JsonHelper jsonHelper = new JsonHelper();
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
@@ -27,7 +32,7 @@ public class TipoServicoController extends HttpServlet{
 		TipoServico serv = (TipoServico) RottaUtils.populaReq(new TipoServico(), req.getParameterMap());	
 
 		
-		tipoServicoRepository.cadastrar(serv);
+		TipoServicoRepositoryBanco.cadastrar(serv);
 		try {
 			resp.getWriter().println(jsonHelper.gerarJson(serv));
 		} catch (IllegalArgumentException e) {
@@ -45,7 +50,7 @@ public class TipoServicoController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json;			
 		try {				
-			json = jsonHelper.gerarJsonLista(TipoServicoRepositoryBanco.buscarTodos());
+			json = jsonHelper.gerarJson(TipoServicoRepositoryBanco.buscarTodos());
 			resp.getWriter().print(json);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			
@@ -57,7 +62,7 @@ public class TipoServicoController extends HttpServlet{
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		TipoServico serv = (TipoServico) RottaUtils.populaReq(new TipoServico(), req.getParameterMap());	
 		
-		tipoServicoRepository.alterar(serv);
+		tiposervicoRepository.alterar(serv);
 	
 	}
 	
@@ -65,7 +70,7 @@ public class TipoServicoController extends HttpServlet{
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int id = Integer.parseInt(req.getParameter("id"));			
-		tipoServicoRepository.excluir(id);
+		tiposervicoRepository.excluir(id);
 	
 	}
 }

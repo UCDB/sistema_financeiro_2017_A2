@@ -15,7 +15,7 @@ public class CaixaRepositoryBanco {
 	private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void cadastrar(Caixa caixa) {
-		String sql = "insert into caixa values (default,?,?,?,?,?,?,?,?)";
+		String sql = "insert into caixa values (default,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class CaixaRepositoryBanco {
 			ps.setBoolean(4, caixa.getStatus());
 			ps.setString(2, caixa.getDescricao());
 			ps.setString(1, caixa.getData());
-			ps.setInt(9, caixa.getId_fornecedor());
+			
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -36,7 +36,7 @@ public class CaixaRepositoryBanco {
 	}
 
 	public void alterar(Caixa caixa) {
-		String sql = "update caixa set data=?,descricao=?, valor=?, status=?, formapagamento=?, id_tipodespesa=?, id_cliente=?, id_fornecedor where id_caixa=?";
+		String sql = "update caixa set data=?,descricao=?, valor=?, status=?, formapagamento=?, id_tipodespesa=?, id_cliente=? where id_caixa=?";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class CaixaRepositoryBanco {
 			ps.setInt(6, caixa.getId_tipodespesa());
 			ps.setInt(7, caixa.getId_cliente());
 			ps.setInt(8, caixa.getId_caixa());
-			ps.setInt(9, caixa.getId_fornecedor());
+
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -88,8 +88,8 @@ public class CaixaRepositoryBanco {
 				Integer formapagamento = result.getInt("formapagamento");
 				Integer id_tipodespesa = result.getInt("id_tipodespesa");
 				Integer id_cliente = result.getInt("id_cliente");
-				Integer id_fornecedor = result.getInt("id_fornecedor");
-				Caixa caix = new Caixa(data,descricao,valor,status,formapagamento,id_tipodespesa,id_cliente,id_fornecedor);
+				
+				Caixa caix = new Caixa(data,descricao,valor,status,formapagamento,id_tipodespesa,id_cliente);
 				
 
 				lista.add(caix);

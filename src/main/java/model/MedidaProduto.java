@@ -1,18 +1,18 @@
 package model;
 
-public class Medida_produto {
+public class MedidaProduto {
 	private Integer id_medidaproduto;
 	private String descricao;
 
-	public Medida_produto(){
+	public MedidaProduto(){
 		
 	}
 
-	public int getId_medidaproduto() {
+	public Integer getId_medidaproduto() {
 		return id_medidaproduto;
 	}
 
-	public void setId_medidaproduto(int id_medidaproduto) {
+	public void setId_medidaproduto(Integer id_medidaproduto) {
 		this.id_medidaproduto = id_medidaproduto;
 	}
 

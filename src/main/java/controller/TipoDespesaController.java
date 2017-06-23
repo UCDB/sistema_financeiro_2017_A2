@@ -15,7 +15,7 @@ import model.TipoServico;
 import repository.TipoDespesaRepositoryBanco;
 import utils.RottaUtils;
 
-@WebServlet(urlPatterns = "/tipodespesa")
+@WebServlet(urlPatterns = "/tipodespesacontroller")
 public class TipoDespesaController extends HttpServlet{
 	
 private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json;			
 		try {				
-			json = jsonHelper.gerarJsonLista(tipoDespesaRepository.buscarTodos());
+			json = jsonHelper.gerarJson(tipoDespesaRepository.buscarTodos());
 			resp.getWriter().print(json);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			

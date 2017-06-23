@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
 import model.Caixa;
+import model.TipoDespesa;
 import repository.CaixaRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/caixa")
+@WebServlet(urlPatterns = "/caixacontroller")
 public class CaixaController extends HttpServlet{
 	
 	/**
@@ -44,7 +47,7 @@ public class CaixaController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json;			
 		try {				
-			json = jsonHelper.gerarJsonLista(caixaRepository.buscarTodos());
+			json = jsonHelper.gerarJson(caixaRepository.buscarTodos());
 			resp.getWriter().print(json);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			

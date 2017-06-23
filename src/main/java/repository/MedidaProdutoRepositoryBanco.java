@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Medida_produto;
+import model.MedidaProduto;
 
 public class MedidaProdutoRepositoryBanco {
 private Connection conexao = ConexaoFactory.criarConexao();
-	public void cadastrar(Medida_produto medpro){
+	public void cadastrar(MedidaProduto medpro){
 		String sql = "insert into medidaproduto  values (default,?)";
 		
 		
@@ -25,26 +25,23 @@ private Connection conexao = ConexaoFactory.criarConexao();
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public List<Medida_produto> buscarTodos() {
-		
-		List<Medida_produto> lista = new ArrayList<>();
+	public Object buscarTodos() {
+		List<MedidaProduto> lista = new ArrayList<>();
 		
 		try {
-			String sql = "Select * from medidaproduto order by id_medidaproduto";
+			String sql = "Select * from medida_produto order by id_medidaproduto";
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 			
 			while (result.next()) {
-				int id = result.getInt("id_medidaproduto");
+				int id = result.getInt("id");
 				String descricao = result.getString("descricao");
 				
-				Medida_produto medpro = new Medida_produto();
-				medpro.setId_medidaproduto(id);
-				medpro.setDescricao(descricao);
+				MedidaProduto m = new MedidaProduto();
+				m.setId_medidaproduto(id);
+				m.setDescricao(descricao);
 				
-				lista.add(medpro);
+				lista.add(m);
 				
 			}
 		} catch (SQLException e){
@@ -54,49 +51,43 @@ private Connection conexao = ConexaoFactory.criarConexao();
 		
 		
 	}
-	
-	/*public List<Medida_produto> buscarPorId(int id_medidaproduto) {
-		
-		List<Medida_produto> lista = new ArrayList<>();
-		
+	public MedidaProduto buscarPorId(Integer id) {
 		try {
-			String sql = "select * from medidaproduto where id_medidaproduto=?";
+			String sql = "select * from medida_produto where id=?";
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
-			prepareStatement.setInt(1, id_medidaproduto);
+			prepareStatement.setInt(1, id);
 			ResultSet result = prepareStatement.executeQuery();
 			
 			if (result.next()) {
-				int id = result.getInt("id");
+				Integer id_medidaproduto = result.getInt("id");
 				String descricao = result.getString("descricao");
 				
-				Medida_produto medpro = new Medida_produto();
-				medpro.setId_medidaproduto(id);
-				medpro.setDescricao(descricao);
+				MedidaProduto m = new MedidaProduto();
+				m.setId_medidaproduto(id_medidaproduto);
+				m.setDescricao(descricao);
 				
-				lista.add(medpro);
-				return lista;
+				return m;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
-	}*/
-	
-	
-	public void alterar(Medida_produto m) {
-		String sql = "update medida_produto set descricao=? where id_medidaproduto=?";
+	}
+	public void alterar(MedidaProduto m) {
+		String sql = "update medidaproduto set descricao=? where id_medidaproduto=?";
 		
 		try{
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1,m.getDescricao());
+			ps.setInt(2,m.getId_medidaproduto());
+			
+			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
 	public void excluir(int id) {
 		try {
 			String sql = "delete from medida_produto where id_medidaproduto=?";

@@ -1,5 +1,7 @@
 package repository;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,16 +39,19 @@ public class ServicoRepositoryBanco {
 	}
 	
 	public void alterar(Servico serv) {
-		String sql = "update servico set id_servico=?,descricao=?,tipo=?,valorServico=?,valorMax=?,valorMin=? where id=?";
+		String sql = "update servico set descricao=?,valorServico=?,valorminimo=?,valormaximo=?,id_tiposervico=?,id_funcionario=? where id_servico=?";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setInt(1, serv.getId_servico());
-			ps.setString(2, serv.getDescricao());			
-			ps.setDouble(4, serv.getValorservico());
-			ps.setDouble(5, serv.getValormaximo());
-			ps.setDouble(6, serv.getValorminimo());
-
+			
+			ps.setString(1, serv.getDescricao());			
+			ps.setDouble(2, serv.getValorservico());
+			ps.setDouble(3, serv.getValorminimo());
+			ps.setDouble(4, serv.getValormaximo());
+			ps.setInt(5, serv.getId_tiposervico());
+			ps.setInt(6, serv.getId_funcionario());
+			ps.setInt(7, serv.getId_servico());
+			
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -74,28 +79,39 @@ public class ServicoRepositoryBanco {
 		List<Servico> lista = new ArrayList<>();
 
 		try {			
-			String sql = "select * from servico order by id_servico";
+			String sql = "select * from servico order by descricao";
+			/*if(serv.getDescricao() != null && !serv.getDescricao().equals("") )
+				sql = sql.concat(serv.getDescricao());
+			if(serv.getTipo() != null && !serv.getTipo().equals(""))
+				sql = sql.concat(" AND ").concat(sql);
+			if(serv.getValorServico() != null)
+				sql = sql.concat(" AND ").concat(sql);
+			if(serv.getValorMax() != null)
+				sql = sql.concat(" AND ").concat(sql);
+			if(serv.getValorMin() != null)
+				sql = sql.concat(" AND ").concat(sql);*/
 			
+				//sql = sql.concat (" order by descricao");
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {			
-				Integer id = result.getInt("id_servico");				
+				Integer id_servico = result.getInt("id_servico");				
 				String descricao = result.getString("descricao");					
 				Double valorServico = Double.parseDouble(result.getString("valorservico"));
 				Double valorMin = Double.parseDouble(result.getString("valorminimo"));
 				Double valorMax = Double.parseDouble(result.getString("valormaximo"));				
 				Integer id_tiposervico = result.getInt("id_tiposervico");
 				Integer id_funcionario = result.getInt("id_funcionario");
-				
 				Servico servico = new Servico(descricao,valorServico,valorMin,valorMax,id_tiposervico,id_funcionario);
-				servico.setId_servico(id);
 				
 
 				lista.add(servico);
+
 			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

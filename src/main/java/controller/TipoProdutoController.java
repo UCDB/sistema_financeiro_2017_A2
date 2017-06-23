@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
+import model.Produto;
 import model.TipoProduto;
+import repository.TipoDespesaRepositoryBanco;
 import repository.TipoProdutoRepositoryBanco;
 import utils.RottaUtils;
-
-
-@WebServlet(urlPatterns = "/tipoproduto")
+@WebServlet(urlPatterns = "/tipoprodutocontroller")
 public class TipoProdutoController extends HttpServlet {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private TipoProdutoRepositoryBanco tipoProdutoRepository = new TipoProdutoRepositoryBanco();
+	private TipoProdutoRepositoryBanco tipoProdutoRB = new TipoProdutoRepositoryBanco();
 	private JsonHelper jsonHelper = new JsonHelper();
 	
 	@Override
@@ -31,7 +31,7 @@ public class TipoProdutoController extends HttpServlet {
 		TipoProduto tipoPro = (TipoProduto) RottaUtils.populaReq(new TipoProduto(), req.getParameterMap());
 
 		
-		tipoProdutoRepository.cadastrar(tipoPro);
+		tipoProdutoRB.cadastrar(tipoPro);
 		try {
 			resp.getWriter().println(jsonHelper.gerarJson(tipoPro));
 		} catch (IllegalArgumentException e) {
@@ -50,7 +50,7 @@ public class TipoProdutoController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json;			
 		try {				
-			json = jsonHelper.gerarJsonLista(tipoProdutoRepository.buscarTodos());
+			json = jsonHelper.gerarJson(tipoProdutoRB.buscarTodos());
 			resp.getWriter().print(json);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			
@@ -62,15 +62,13 @@ public class TipoProdutoController extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		TipoProduto tipoPro = (TipoProduto) RottaUtils.populaReq(new TipoProduto(), req.getParameterMap());
 		
-		tipoPro.setDescricao("descricao");
-		
-		tipoProdutoRepository.alterar(tipoPro);
+		tipoProdutoRB.alterar(tipoPro);
 		
 	}
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		tipoProdutoRepository.excluir(id);
+		tipoProdutoRB.excluir(id);
 	}
 }

@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +15,11 @@ import helper.JsonHelper;
 import model.Produto;
 import repository.ProdutoRepositoryBanco;
 
-@WebServlet(urlPatterns = "/produto")
+@WebServlet(urlPatterns = "/produtocontroller")
 public class ProdutoController<ProdutoRepository> extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ProdutoRepositoryBanco produtoRepository = new ProdutoRepositoryBanco();
+	ProdutoRepositoryBanco pro = new ProdutoRepositoryBanco();
 	private JsonHelper jsonHelper = new JsonHelper();
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -25,7 +27,7 @@ public class ProdutoController<ProdutoRepository> extends HttpServlet {
 
 		Produto prod = (Produto) RottaUtils.populaReq(new Produto(), req.getParameterMap());		
 
-		produtoRepository.cadastrar(prod);
+		pro.cadastrar(prod);
 		
 		try {
 			resp.getWriter().println(jsonHelper.gerarJson(prod));
@@ -48,7 +50,7 @@ public class ProdutoController<ProdutoRepository> extends HttpServlet {
 
 		try {
 			
-			json = jsonHelper.gerarJsonLista(produtoRepository.buscarTodos());
+			json = jsonHelper.gerarJson(pro.buscarTodos());
 			resp.getWriter().print(json);
 		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -62,11 +64,11 @@ public class ProdutoController<ProdutoRepository> extends HttpServlet {
 		
 		
 		Produto prod = (Produto) RottaUtils.populaReq(new Produto(), req.getParameterMap());		
-		produtoRepository.alterar(prod);
+		pro.alterar(prod);
 	}
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
-		produtoRepository.excluir(id);
+		pro.excluir(id);
 	}
 }

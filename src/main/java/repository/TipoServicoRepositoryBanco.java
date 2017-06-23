@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Servico;
 import model.TipoServico;
 
 public class TipoServicoRepositoryBanco {
 	private static Connection conexao = ConexaoFactory.criarConexao();
 	
-	public void cadastrar(TipoServico tiposervico) {
+	public static void cadastrar(TipoServico tiposervico) {
 		String sql = "insert into tipo_servico values (default,?)";
 
 		try {
@@ -32,6 +33,7 @@ public class TipoServicoRepositoryBanco {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			
 			ps.setString(1, tiposervico.getDescricao());
+			ps.setInt(2, tiposervico.getId_tipoServico());
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -54,7 +56,6 @@ public class TipoServicoRepositoryBanco {
 	}
 
 	public static List<TipoServico> buscarTodos() {
-		
 		List<TipoServico> lista = new ArrayList<>();
 
 		try {			
@@ -63,17 +64,18 @@ public class TipoServicoRepositoryBanco {
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {			
-				Integer id = result.getInt("id_tiposervico");				
+								
 				String descricao = result.getString("descricao");
 				
-				TipoServico tipoServico = new TipoServico(descricao);
-				tipoServico.setId_tipoServico(id);
+				TipoServico tipo_servico = new TipoServico(descricao);
+				
 
-				lista.add(tipoServico);
+				lista.add(tipo_servico);
 
 			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

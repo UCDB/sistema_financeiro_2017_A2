@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Produto;
+import model.Servico;
+import model.TipoDespesa;
 import model.TipoProduto;
 
 public class TipoProdutoRepositoryBanco {
@@ -35,7 +38,7 @@ public class TipoProdutoRepositoryBanco {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1, prod.getDescricao());
-
+			ps.setInt(2, prod.getId_tipoproduto());
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -46,7 +49,6 @@ public class TipoProdutoRepositoryBanco {
 	}
 	
 	public  List<TipoProduto> buscarTodos() {
-		
 		List<TipoProduto> lista = new ArrayList<>();
 
 		try {			
@@ -54,21 +56,20 @@ public class TipoProdutoRepositoryBanco {
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
-			while (result.next()) {
-				Integer id = result.getInt("id_tipoproduto");
+			while (result.next()) {							
 				String descricao = result.getString("descricao");
 				
-				TipoProduto tipoProduto = new TipoProduto();
-				tipoProduto.setId_tipoproduto(id);
-				tipoProduto.setDescricao(descricao);
+				TipoProduto tipo_Produto = new TipoProduto();
+				tipo_Produto.setDescricao(descricao);
 				
 				
 
-				lista.add(tipoProduto);
+				lista.add(tipo_Produto);
 
 			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
