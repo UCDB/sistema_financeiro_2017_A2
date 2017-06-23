@@ -13,7 +13,7 @@ import helper.JsonHelper;
 import model.Produto;
 import repository.ProdutoRepositoryBanco;
 
-@WebServlet(urlPatterns = "/produtocontroller")
+@WebServlet(urlPatterns = "/produto")
 public class ProdutoController<ProdutoRepository> extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -16,7 +16,7 @@ import utils.RottaUtils;
 
 
 
-@WebServlet(urlPatterns = "/medidaprodutocontroller")
+@WebServlet(urlPatterns = "/medidaproduto")
 public class MedidaProdutoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

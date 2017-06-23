@@ -13,7 +13,7 @@ import helper.JsonHelper;
 import model.TipoServico;
 import repository.TipoServicoRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/tiposervicocontroller")
+@WebServlet(urlPatterns = "/tiposervico")
 public class TipoServicoController extends HttpServlet{
 	
 	

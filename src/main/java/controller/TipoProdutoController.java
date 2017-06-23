@@ -15,7 +15,7 @@ import repository.TipoProdutoRepositoryBanco;
 import utils.RottaUtils;
 
 
-@WebServlet(urlPatterns = "/tipoprodutocontroller")
+@WebServlet(urlPatterns = "/tipoproduto")
 public class TipoProdutoController extends HttpServlet {
 	/**
 	 * 

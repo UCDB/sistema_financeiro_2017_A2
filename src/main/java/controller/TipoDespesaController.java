@@ -15,7 +15,7 @@ import model.TipoServico;
 import repository.TipoDespesaRepositoryBanco;
 import utils.RottaUtils;
 
-@WebServlet(urlPatterns = "/tipodespesacontroller")
+@WebServlet(urlPatterns = "/tipodespesa")
 public class TipoDespesaController extends HttpServlet{
 	
 private static final long serialVersionUID = 1L;
