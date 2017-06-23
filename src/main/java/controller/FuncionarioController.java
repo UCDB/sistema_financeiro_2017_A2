@@ -21,12 +21,12 @@ public class FuncionarioController extends HttpServlet {
 
 	@Override
 	protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String 	nome 		= req.getParameter("nome_razao");
+		String 	nome 		= req.getParameter("nome");
 		String	endereco 	= req.getParameter("endereco");
 		String	telefone 	= req.getParameter("telefone");
 		String	email 		= req.getParameter("email");
-		String	cpf 		= req.getParameter("cpf_cnpj");
-		String	rg 			= req.getParameter("rg_ie");
+		String	cpf 		= req.getParameter("cpf");
+		String	rg 			= req.getParameter("rg");
 		String	cep 		= req.getParameter("cep");
 		String	contato		= req.getParameter("contato");
 		String	info_add	= req.getParameter("info_add");
@@ -81,7 +81,7 @@ public class FuncionarioController extends HttpServlet {
 		String	rg 			= req.getParameter("rg");
 		String	cep 		= req.getParameter("cep");
 		String	contato		= req.getParameter("contato");
-		String	info_add		= req.getParameter("info_add");
+		String	info_add	= req.getParameter("info_add");
 
 		Funcionario func = new Funcionario(nome, endereco, telefone, email, cpf, rg, cep, contato, info_add);
 		func.setId(id);

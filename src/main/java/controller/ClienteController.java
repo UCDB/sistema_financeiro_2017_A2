@@ -23,12 +23,12 @@ public class ClienteController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String nome_razao	= req.getParameter("nome_razao");
+		String nome_razao	= req.getParameter("nome");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cpf_cpnj 	= req.getParameter("cpf_cpnj");
-		String rg_ie 		= req.getParameter("rg_ie");
+		String cpf_cpnj 	= req.getParameter("cpf");
+		String rg_ie 		= req.getParameter("rg");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add		= req.getParameter("info_add");

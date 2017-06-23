@@ -15,7 +15,7 @@ public class ClienteRepositoryBanco {
 	public void cadastrar(Cliente cl) {
 		String sql = "INSERT INTO cliente (nome,endereco,telefone,email,cpf,rg,cep,contato,info_add)"
 				   + "VALUES ('"+cl.getNomeRazao()+"','"+cl.getEndereco()+"','"+cl.getTelefone()+"','"+cl.getEmail()+"','"+cl.getCpfCnpj()+"','"+cl.getRgIe()+"','"+cl.getCep()+"','"+cl.getContato()+"','"+cl.getInfoAdd()+"')";		
-
+		
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.execute();			

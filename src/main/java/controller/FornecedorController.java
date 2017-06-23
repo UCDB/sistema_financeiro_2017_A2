@@ -22,12 +22,12 @@ public class FornecedorController extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String razao_social = req.getParameter("nome_razao");
+		String razao_social = req.getParameter("nome");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cnpj 		= req.getParameter("cpf_cnpj");
-		String ie 			= req.getParameter("rg_ie");
+		String cnpj 		= req.getParameter("cpf");
+		String ie 			= req.getParameter("rg");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add 	= req.getParameter("info_add");
@@ -71,12 +71,12 @@ public class FornecedorController extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id 			= Integer.parseInt(req.getParameter("id"));
-		String razao_social	= req.getParameter("nome_razao");
+		String razao_social	= req.getParameter("nome");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cnpj 		= req.getParameter("cpf_cnpj");
-		String ie 			= req.getParameter("rg_ie");
+		String cnpj 		= req.getParameter("cpf");
+		String ie 			= req.getParameter("rg");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add 	= req.getParameter("info_add");
