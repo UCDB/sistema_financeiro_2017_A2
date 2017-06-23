@@ -8,13 +8,13 @@ public class Caixa {
 	private String descricao;
 	private Double valor;
 	private Boolean status;
-	private Integer formapagamento,id_tipodespesa,id_cliente;
+	private Integer formapagamento,id_tipodespesa,id_cliente, id_fornecedor;
 	
 	
 	public Caixa(){}
 
 	public Caixa(String data, String descricao, Double valor, Boolean status, Integer formapagamento, Integer id_tipodespesa,
-			Integer id_cliente) {
+			Integer id_cliente, Integer id_fornecedor) {
 		super();
 		this.data = data;
 		this.descricao = descricao;
@@ -23,6 +23,7 @@ public class Caixa {
 		this.formapagamento = formapagamento;
 		this.id_tipodespesa = id_tipodespesa;
 		this.id_cliente = id_cliente;
+		this.setId_fornecedor(id_fornecedor);
 	}
 
 	public Integer getId_caixa() {
@@ -87,6 +88,14 @@ public class Caixa {
 
 	public void setId_cliente(Integer id_cliente) {
 		this.id_cliente = id_cliente;
+	}
+
+	public Integer getId_fornecedor() {
+		return id_fornecedor;
+	}
+
+	public void setId_fornecedor(Integer id_fornecedor) {
+		this.id_fornecedor = id_fornecedor;
 	}
 
 

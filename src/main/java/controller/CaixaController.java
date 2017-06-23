@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import helper.JsonHelper;
 import model.Caixa;
-import model.TipoDespesa;
 import repository.CaixaRepositoryBanco;
 import utils.RottaUtils;
 @WebServlet(urlPatterns = "/caixacontroller")
