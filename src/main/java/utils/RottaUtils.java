@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,20 +47,24 @@ public class RottaUtils {
 		return obj;
 	}	
   
-	
-	//Falta setar a row na rows (erro usando objet de cima, or cast de parametrs (ja vem correto))
 	public static List<? extends Object> populaResult(Object obj, ResultSet rs) throws SQLException {
 	    ResultSetMetaData md = rs.getMetaData();
 	    int columns = md.getColumnCount();
 	    List<Object> rows = new ArrayList<>();
 	    while (rs.next()){
-	    	Map<String, Object> row = new HashMap<String, Object>(columns);
+	    	Map<String, String[]> row = new HashMap<String, String[]>(columns);
 	        for(int i = 1; i <= columns; ++i){
-	            row.put(md.getColumnName(i), rs.getObject(i));
+	        	String[] valor = new String[1];
+	        	valor[0] = rs.getObject(i).toString();
+	            row.put(md.getColumnName(i), valor);
 	        }
-	        rows.add(populaReq(obj, row));
+	        try {
+				rows.add(populaReq(obj.getClass().newInstance(), row));
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
 	    return rows;
 	}
 }
-
