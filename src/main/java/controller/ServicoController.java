@@ -14,7 +14,7 @@ import model.Caixa;
 import model.Servico;
 import repository.ServicoRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/servcontroller")
+@WebServlet(urlPatterns = "/servico")
 public class ServicoController extends HttpServlet{
 
 		private ServicoRepositoryBanco servicoRepository = new ServicoRepositoryBanco();
