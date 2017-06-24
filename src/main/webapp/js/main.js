@@ -137,19 +137,17 @@ var objetoServ = new function(){
 
 	this.update = function(identificador){
 		if( id_sendo_alterado != "" ){ // PRONTO
-			var nome_razao	= document.getElementById("nome_razao").value;
-			var endereco 	= document.getElementById("endereco").value;
-			var telefone 	= document.getElementById("telefone").value;
-			var email 		= document.getElementById("email").value;
-			var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
-			var rg_ie 		= document.getElementById("rg_ie").value;
-			var cep 		= document.getElementById("cep").value;
-			var contato 	= document.getElementById("contato").value;
-			var info_add 	= document.getElementById("info_add").value;
+			var descricao	= document.getElementById("descricao").value;
+			var valorservico 	= document.getElementById("valorservico").value;
+			var valorminimo 	= document.getElementById("valorminimo").value;
+			var valormaximo 		= document.getElementById("valormaximo").value;
+			var id_tiposervico	= document.getElementById("id_tiposervico").value;
+			var id_funcionario 		= document.getElementById("id_funcionario").value;
 
 			xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal, true);
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
+			xhttp.send("descricao="+descricao+"&valorservico="+valorservico+"&valorminimo="+valorminimo+"&valormaximo="+valormaximo+"&id_tiposervico="+id_tiposervico+"&id_funcionario="+id_funcionario);
+			//xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
 
 			id_sendo_alterado = "";
 
@@ -197,12 +195,8 @@ var objetoCaixa = new function(){
 		
 
 		if( data != '' && descricao != '' && valor != '' && status != '' && formapagamento != '' && id_tipodespesa != '' && id_cliente != '' && id_fornecedor != '' ){
-				
-
 			xhttp.open("POST", "/sistema_financeiro_2017_A/"+path_principal, true);
-			
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-
 			xhttp.send("data="+data+"&descricao="+descricao+"&valor="+valor+"&status="+status+"&formapagamento="+formapagamento+"&id_tipodespesa="+id_tipodespesa+"&id_cliente="+id_cliente+"&id_fornecedor="+id_fornecedor);
 
 			alert(path_principal+" cadastrado com sucesso!"); // retorno ao usuário
@@ -214,19 +208,19 @@ var objetoCaixa = new function(){
 
 	this.update = function(identificador){
 		if( id_sendo_alterado != "" ){ // PRONTO
-			var nome_razao	= document.getElementById("nome_razao").value;
-			var endereco 	= document.getElementById("endereco").value;
-			var telefone 	= document.getElementById("telefone").value;
-			var email 		= document.getElementById("email").value;
-			var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
-			var rg_ie 		= document.getElementById("rg_ie").value;
-			var cep 		= document.getElementById("cep").value;
-			var contato 	= document.getElementById("contato").value;
-			var info_add 	= document.getElementById("info_add").value;
+			var data	= document.getElementById("data").value;
+			var descricao	= document.getElementById("descricao_caixa").value;
+			var valor 	= document.getElementById("valor_caixa").value;
+			var status 	= document.getElementById("status").value;
+			var formapagamento 		= document.getElementById("formapagamento").value;
+			var id_tipodespesa	= document.getElementById("id_tipodespesa").value;
+			var id_cliente		= document.getElementById("id_cliente_caixa").value;
+			var id_fornecedor		= document.getElementById("id_fornecedor").value;
 
 			xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal, true);
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
+			xhttp.send("data="+data+"&descricao="+descricao+"&valor="+valor+"&status="+status+"&formapagamento="+formapagamento+"&id_tipodespesa="+id_tipodespesa+"&id_cliente="+id_cliente+"&id_fornecedor="+id_fornecedor);
+		//	xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
 
 			id_sendo_alterado = "";
 
