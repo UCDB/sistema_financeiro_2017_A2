@@ -15,7 +15,7 @@ public class CaixaRepositoryBanco {
 	private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void cadastrar(Caixa caixa) {
-		String sql = "insert into caixa values (default,?,?,?,?,?,?,?)";
+		String sql = "insert into caixa values (default,?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -26,6 +26,7 @@ public class CaixaRepositoryBanco {
 			ps.setBoolean(4, caixa.getStatus());
 			ps.setString(2, caixa.getDescricao());
 			ps.setString(1, caixa.getData());
+			ps.setInt(8, caixa.getId_fornecedor());
 			
 			ps.execute();
 
