@@ -12,7 +12,7 @@ import helper.JsonHelper;
 import model.Caixa;
 import repository.CaixaRepositoryBanco;
 import utils.RottaUtils;
-@WebServlet(urlPatterns = "/caixacontroller")
+@WebServlet(urlPatterns = "/caixa")
 public class CaixaController extends HttpServlet{
 	
 	/**
