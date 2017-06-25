@@ -13,17 +13,17 @@ public class FornecedorRepositoryBanco{
 	private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void cadastrar(Fornecedor fornecedor) {
-		String sql = "INSERT INTO fornecedor (nome, endereco, telefone, email, cpf, rg, cep, contato, info_add)"
+		String sql = "INSERT INTO fornecedor (nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add)"
 				   + "VALUES (?,?,?,?,?,?,?,?,?)";
 
 		try{
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setString(1, fornecedor.getRazaoSocial());
+			ps.setString(1, fornecedor.getNomeRazao());
 			ps.setString(2, fornecedor.getEndereco());
 			ps.setString(3, fornecedor.getTelefone());
 			ps.setString(4, fornecedor.getEmail());
-			ps.setString(5, fornecedor.getCnpj());
-			ps.setString(6, fornecedor.getIe());
+			ps.setString(5, fornecedor.getCpfCnpj());
+			ps.setString(6, fornecedor.getRgIe());
 			ps.setString(7, fornecedor.getCep());
 			ps.setString(8, fornecedor.getContato());
 			ps.setString(9, fornecedor.getInfoAdd());
@@ -38,23 +38,26 @@ public class FornecedorRepositoryBanco{
 		List<Fornecedor> lista = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM fornecedor ORDER BY name";
+			String sql = "SELECT * FROM fornecedor ORDER BY nome_razao";
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
-			do {
+
+			while (result.next()) {
 				int id 				= result.getInt("id");
-				String razao_social = result.getString("nome");
+				String nome_razao	= result.getString("nome_razao");
 				String endereco 	= result.getString("endereco");
 				String telefone 	= result.getString("telefone");
 				String email 		= result.getString("email");
-				String cnpj 		= result.getString("cpf");
-				String ie 			= result.getString("rg");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie 		= result.getString("rg_ie");
 				String cep 			= result.getString("cep");
 				String contato 		= result.getString("contato");
 				String info_add 	= result.getString("info_add");
 
-				ps.executeQuery();
-			} while (result.next());
+				Fornecedor forn = new Fornecedor(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
+				forn.setId(id);
+				lista.add(forn);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,17 +67,17 @@ public class FornecedorRepositoryBanco{
 
 	public void alterar(Fornecedor fornecedor) {
 		String sql = "UPDATE fornecedor "
-				   + "SET nome = ?, endereco = ?, telefone=?, email = ?, cpf = ?, rg = ?, cep = ?, contato = ?, info_add = ?"
+				   + "SET nome_razao = ?, endereco = ?, telefone=?, email = ?, cpf_cnpj = ?, rg_ie = ?, cep = ?, contato = ?, info_add = ?"
 				   + "WHERE id=?";
 		
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			 ps.setString(1, fornecedor.getRazaoSocial());
+			 ps.setString(1, fornecedor.getNomeRazao());
 			 ps.setString(2, fornecedor.getEndereco());
 			 ps.setString(3, fornecedor.getTelefone());
 			 ps.setString(4, fornecedor.getEmail());
-			 ps.setString(5, fornecedor.getCnpj());
-			 ps.setString(6, fornecedor.getIe());
+			 ps.setString(5, fornecedor.getCpfCnpj());
+			 ps.setString(6, fornecedor.getRgIe());
 			 ps.setString(7, fornecedor.getCep());
 			 ps.setString(8, fornecedor.getContato());
 			 ps.setString(9, fornecedor.getInfoAdd());
@@ -94,18 +97,18 @@ public class FornecedorRepositoryBanco{
 			ResultSet result = ps.executeQuery();
 			
 			if(result.next()){
-				int id_forn = result.getInt("id");
-				String razao_social = result.getString("nome");
-				String endereco = result.getString("endereco");
-				String telefone = result.getString("telefone");
-				String email = result.getString("email");
-				String cnpj = result.getString("cpf");
-				String ie = result.getString("rg");
-				String cep = result.getString("cep");
-				String contato = result.getString("contato");
-				String info_add = result.getString("info_add");
+				int id_forn 		= result.getInt("id");
+				String nome_razao 	= result.getString("nome_razao");
+				String endereco 	= result.getString("endereco");
+				String telefone 	= result.getString("telefone");
+				String email 		= result.getString("email");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie 		= result.getString("rg_ie");
+				String cep 			= result.getString("cep");
+				String contato 		= result.getString("contato");
+				String info_add 	= result.getString("info_add");
 
-				Fornecedor f = new Fornecedor(razao_social, endereco, telefone, email, cnpj, ie, cep, contato, info_add);
+				Fornecedor f = new Fornecedor(nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add);
 				f.setId(id_forn);
 
 				return f;

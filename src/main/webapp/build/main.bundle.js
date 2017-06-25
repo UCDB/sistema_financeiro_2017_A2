@@ -7,6 +7,10 @@ var id_sendo_alterado = "";
 function acessa_modulo(caminho) {
 	id_sendo_alterado = "";
 
+	path_principal = caminho;
+
+	carrega_tabela_principal();
+
 	xhttp.onreadystatechange = function () {
 		document.getElementById("conteudo_menu").innerHTML = this.responseText;
 	};
@@ -15,9 +19,6 @@ function acessa_modulo(caminho) {
 
 	$(".menu_superior").removeClass("active");
 	document.getElementById(caminho).setAttribute("class", "active");
-
-	path_principal = caminho;
-	carregar_tabela_principal();
 }
 
 function acessa_sub_modulo(caminho) {
@@ -28,18 +29,33 @@ function acessa_sub_modulo(caminho) {
 	xhttp.send();
 }
 
-function carregar_tabela_principal() {
-	/*
- xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        	console.log(this.responseText);
-        	// manipular this.responseText que possui o jSon com os resultados
-        }
-    };	
- 
-    xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id=all", true);
- xhttp.send(); 
- */
+function carrega_tabela_principal() {
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			//console.log(this.responseText);
+			var aux = this.responseText.replace('[{', '');
+			aux = aux.replace('}]', '');
+
+			if (aux.indexOf('},{') != -1) {
+				aux = aux.replace('},{', ',');
+			}
+
+			var indice = 0;
+			var json_to_array = new Array();
+
+			elementos = aux.split('","');
+
+			elementos.forEach(function (e) {
+				aux = e.replace('"', '');
+				aux = aux.split(':');
+				json_to_array[indice] = aux[1].replace('"', '');
+				indice++;
+				console.log(json_to_array);
+			});
+		}
+	};
+	xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=all", false);
+	xhttp.send();
 }
 
 var objeto = new function () {
@@ -89,21 +105,7 @@ var objeto = new function () {
 		} else {
 			// FAZENDO
 			id_sendo_alterado = identificador;
-
-			var retorno = "";
-
-			xhttp.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-					retorno = this.responseText;console.log(this.responseText);
-				}
-			};
-
-			xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
-			xhttp.send();
-
 			acessa_sub_modulo('update');
-
-			console.log("Retorno: " + retorno);
 		}
 	};
 

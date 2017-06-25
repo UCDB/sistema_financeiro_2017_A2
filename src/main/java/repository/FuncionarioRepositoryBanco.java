@@ -12,18 +12,18 @@ import model.Funcionario;
 public class FuncionarioRepositoryBanco {
 private Connection conexao = ConexaoFactory.criarConexao();
 	public void cadastrar(Funcionario func) {
-		String sql = "INSERT INTO funcionario (nome, endereco, telefone, email, cpf, rg, cep, contato, info_add)"
+		String sql = "INSERT INTO funcionario (nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add)"
 				   + "VALUES (?,?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 
-			ps.setString(1, func.getNome());
+			ps.setString(1, func.getNomeRazao());
 			ps.setString(2, func.getEndereco());
 			ps.setString(3, func.getTelefone());
 			ps.setString(4, func.getEmail());
-			ps.setString(5, func.getCpf());
-			ps.setString(6, func.getRg());
+			ps.setString(5, func.getCpfCnpj());
+			ps.setString(6, func.getRgIe());
 			ps.setString(7, func.getCep());
 			ps.setString(8, func.getContato());
 			ps.setString(9, func.getInfoAdd());
@@ -36,17 +36,17 @@ private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void alterar(Funcionario func) {
 		String sql = "UPDATE funcionario "
-				   + "SET nome = ?, endereco = ?, telefone = ?, email = ?, cpf = ?, rg = ?, cep = ?, contato = ?, info_add = ? "
+				   + "SET nome_razao = ?, endereco = ?, telefone = ?, email = ?, cpf_cnpj = ?, rg_ie = ?, cep = ?, contato = ?, info_add = ? "
 				   + "WHERE id = ?";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setString(1, func.getNome());
+			ps.setString(1, func.getNomeRazao());
 			ps.setString(2, func.getEndereco());
 			ps.setString(3, func.getTelefone());
 			ps.setString(4, func.getEmail());
-			ps.setString(5, func.getCpf());
-			ps.setString(6, func.getRg());
+			ps.setString(5, func.getCpfCnpj());
+			ps.setString(6, func.getRgIe());
 			ps.setString(7, func.getCep());
 			ps.setString(8, func.getContato());
 			ps.setString(9, func.getInfoAdd());
@@ -72,23 +72,23 @@ private Connection conexao = ConexaoFactory.criarConexao();
 		List<Funcionario> lista = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM funcionario ORDER BY nome";
+			String sql = "SELECT * FROM funcionario ORDER BY nome_razao";
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {
-				int id 			= result.getInt("id");
-				String nome 	= result.getString("nome");
-				String endereco = result.getString("endereco");
-				String telefone = result.getString("telefone");
-				String email 	= result.getString("email");
-				String cpf 		= result.getString("cpf");
-				String rg 		= result.getString("rg");
-				String cep 		= result.getString("cep");
-				String contato 	= result.getString("contato");
-				String info_add	= result.getString("info_add");
+				int id 				= result.getInt("id");
+				String nome_razao 	= result.getString("nome_razao");
+				String endereco 	= result.getString("endereco");
+				String telefone 	= result.getString("telefone");
+				String email 		= result.getString("email");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie		= result.getString("rg_ie");
+				String cep 			= result.getString("cep");
+				String contato 		= result.getString("contato");
+				String info_add		= result.getString("info_add");
 
-				Funcionario func = new Funcionario(nome,endereco,telefone,email,cpf,rg,cep,contato,info_add);
+				Funcionario func = new Funcionario(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 				func.setId(id);
 				lista.add(func);
 			}
@@ -105,18 +105,18 @@ private Connection conexao = ConexaoFactory.criarConexao();
 			ResultSet result = prepareStatement.executeQuery();
 
 			if (result.next()) {
-				int id_func		= result.getInt("id");
-				String nome 	= result.getString("nome");
-				String endereco = result.getString("endereco");
-				String telefone = result.getString("telefone");
-				String email 	= result.getString("email");
-				String cpf 		= result.getString("cpf");
-				String rg 		= result.getString("rg");
-				String cep 		= result.getString("cep");
-				String contato 	= result.getString("contato");
+				int id_func			= result.getInt("id");
+				String nome_razao 	= result.getString("nome_razao");
+				String endereco 	= result.getString("endereco");
+				String telefone 	= result.getString("telefone");
+				String email 		= result.getString("email");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie 		= result.getString("rg_ie");
+				String cep 			= result.getString("cep");
+				String contato 		= result.getString("contato");
 				String info_add 	= result.getString("info_add");
 
-				Funcionario func = new Funcionario(nome,endereco,telefone,email,cpf,rg,cep,contato,info_add);
+				Funcionario func = new Funcionario(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 				func.setId(id_func);
 
 				return func;
