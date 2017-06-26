@@ -1,7 +1,7 @@
 <div class="nav-content" style="background-color:#4c9689;">
     <ul class="tabs tabs-transparent">
         <li class="tab"><a onclick="acessa_modulo('caixa');">Inicio</a></li>
-        <li class="tab"><a onclick="acessa_sub_modulo('create');">Lançar caixa</a></li>
+        <li class="tab"><a onclick="acessa_sub_modulo_caixa('create');">Lançar caixa</a></li>
     </ul>
 </div>
 <div class="s12" id="conteudo_submenu">
@@ -12,31 +12,13 @@
 				<thead>
 					<tr>
 						<th>Data</th>
-						<th >Descrição</th>
-						<th class="w-10">Valor</th>
-						<th class="w-10">Status</th>
-						<th class="w-10">Forma de Pagamento</th>
-						<th class="w-10">Tipo de Despesa</th>
-						<th class="w-10">Cliente</th>
-						<th class="w-10">Fornecedor</th>
-						<th class="w-10">Opções</th>
+						<th>Valor</th>
+						<th>Forma de Pagamento</th>
+						<th>Opções</th>
 					</tr>
 				</thead>
-		        <tbody>
-					<tr>
-						<td>20/06/17</td>
-						<td>teste</td>
-						<td align="center">500</td>
-						<td>true</td>
-						<td>1</td>
-						<td>1</td>
-						<td>1</td>
-						<td>1</td>
-						<td align="center">
-							<img title="Alterar Serviço" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(1)">
-							<img title="Excluir Serviço" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(1)">
-						</td>
-					</tr>					
+		        <tbody id="corpo_tabela_index">
+								
 		        </tbody>
 			</table>
     	</div>
