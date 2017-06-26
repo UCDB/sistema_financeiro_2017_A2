@@ -16,7 +16,10 @@ function acessa_modulo(caminho){
 		carrega_tabela_servico();
 	}else if(path_principal == "caixa"){
 		carrega_tabela_caixa();
-	}
+    }else if (path_principal == "produto") {
+        carrega_tabela_produto();
+    }
+
 
     $(".menu_superior").removeClass("active");
 	document.getElementById(caminho).setAttribute("class", "active");	
@@ -199,7 +202,6 @@ function acessa_sub_modulo_serv(caminho){
 	xhttp.send();
 }
 
-
 function carrega_tabela_servico(){		
 	xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -352,7 +354,6 @@ function acessa_sub_modulo_caixa(caminho){
 	xhttp.send();
 }
 
-
 function carrega_tabela_caixa(){		
 	xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -466,4 +467,154 @@ var objetoCaixa = new function(){
 			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
 		}
 	}
+}
+//Ações referentes ao Produto
+function acessa_sub_modulo_produto(caminho) {
+    xhttp.onreadystatechange = function () { document.getElementById("conteudo_submenu").innerHTML = this.responseText; };
+    xhttp.open("GET", "./conteudo/" + path_principal + "/" + caminho + ".html", false);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            elementos = this.responseText.split(',');
+            elementos.forEach(function (e) {
+                var campo_valor = e.split(':');
+                if (campo_valor[0] === "id_caixa") {
+                    // não preciso fazer nada pois ja tenho o ID
+                } else if (campo_valor[0] === "data") {
+                    document.getElementById("data").value = campo_valor[1];
+                } else if (campo_valor[0] === "descricao_caixa") {
+                    document.getElementById("descricao_caixa").value = campo_valor[1];
+                } else if (campo_valor[0] === "valor_caixa") {
+                    document.getElementById("valor_caixa").value = campo_valor[1];
+                } else if (campo_valor[0] === "status") {
+                    document.getElementById("status").value = campo_valor[1];
+                } else if (campo_valor[0] === "formapagamento") {
+                    document.getElementById("formapagamento").value = campo_valor[1];
+                } else if (campo_valor[0] === "id_tipodespesa") {
+                    document.getElementById("id_tipodespesa").value = campo_valor[1];
+                } else if (campo_valor[0] === "id_cliente_caixa") {
+                    document.getElementById("id_cliente_caixa").value = campo_valor[1];
+                } else if (campo_valor[0] === "id_fornecedor") {
+                    document.getElementById("id_fornecedor").value = campo_valor[1];
+                }
+                document.getElementById("btn_alterar").setAttribute('onclick', 'objetoCaixa.update(' + id_sendo_alterado + ')');
+            });
+        }
+    };
+    xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + id_sendo_alterado, true);
+    xhttp.send();
+}
+
+function carrega_tabela_produto() {
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var indice = 0;
+            var aux = this.responseText.replace('[{', '');
+            aux = aux.replace('}]', '');
+
+            if (aux.indexOf('},{') == -1) { // string de jSon
+                // fazer ainda
+            } else { // lista de jSon
+                var conteudo_tabela = "";
+                let elementos_internos = "";
+                elementos = aux.split('},{');
+                elementos.forEach(function (e) {
+                    console.log("Elemento: " + e);
+                    let id_da_vez = "";
+                    elementos_internos = e.split(',');
+                    elementos_internos.forEach(function (ei) {
+                        var campo_valor = ei.split(':');
+                        if (campo_valor[0] === "id_caixa") {
+                            conteudo_tabela += '<tr id_caixa="' + campo_valor[1] + '">';
+                            id_da_vez = campo_valor[1];
+                        } else if (campo_valor[0] === "data") {
+                            conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
+                        } else if (campo_valor[0] === "valor_caixa") {
+                            conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
+                        } else if (campo_valor[0] === "formapagamento") {
+                            conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
+                        }
+                    }); // fim foreach elementos internos
+                    conteudo_tabela += '<td align="center"> <img title="Alterar Caixa" src="media/icons/update.png" width="30" height="30" onclick="objetoCaixa.update(' + id_da_vez + ')"> <img title="Excluir Caixa" src="media/icons/trash.png" width="30" height="30" onclick="objetoCaixa.remove(' + id_da_vez + ')"> </td>';
+                    conteudo_tabela += '</tr>';
+                    indice++;
+                }); // fim foreach elementos
+                document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
+            } // fim else
+        }
+    };
+    xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=all", true);
+    xhttp.send();
+}
+
+var objetoProduto = new function () {
+    this.create = function () {
+        var descricao = document.getElementById("descricao").value;
+        var codbarras = document.getElementById("codbarras").value;
+        var precocusto = document.getElementById("precocusto").value;
+        var precovenda = document.getElementById("precovenda").value;
+        var precominvenda = document.getElementById("precominvenda").value;
+        var precomaxvenda = document.getElementById("precomaxvenda").value;
+        var comissaovenda = document.getElementById("comissaovenda").value;
+        var qtdestoque = document.getElementById("qtdestoque").value;
+        var qtdminestoque = document.getElementById("qtdminestoque").value;
+        var altura = document.getElementById("altura").value;
+        var peso = document.getElementById("peso").value;
+        var largura = document.getElementById("largura").value;
+        var profundidade = document.getElementById("profundidade").value;
+        var validade = document.getElementById("validade").value;
+        var medidaproduto = document.getElementById("medidaproduto").value;
+        var tipoproduto = document.getElementById("tipoproduto").value;
+        var fornecedor = document.getElementById("fornecedorCampo").value;
+        var funcionario = document.getElementById("funcionarioCampo").value;
+
+        if (descricao != '' && codbarras != '' && precocusto != '' && precovenda != '' && precominvenda != '' && precomaxvenda != '' && comissaovenda != '' && qtdestoque != '' && qtdminestoque != '' && altura != '' && peso != '' && largura != '' && profundidade != '' && validade != '' && medidaproduto != '' && tipoproduto != '' && fornecedor != '' && funcionario != '') {
+            xhttp.open("POST", "/sistema_financeiro_2017_A/" + path_principal, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("descricao=" + descricao + "&codbarras=" + codbarras + "&id_fornecedor=" + fornecedor + "&precocusto=" + precocusto + "&precovenda=" + precovenda + "&precominvenda=" + precominvenda + "&precomaxvenda=" + precomaxvenda + "&comissaovenda=" + comissaovenda + "&qtdestoque=" + qtdestoque + "&qtdminestoque=" + qtdminestoque + "&altura=" + altura + "&peso=" + peso + "&largura=" + largura + "&profundidade=" + profundidade + "&id_medidaproduto=" + medidaproduto + "&id_tipoproduto=" + tipoproduto + "&id_funcionario=" + funcionario + "&validade=" + validade);
+
+            alert(path_principal + " cadastrado com sucesso!"); // retorno ao usuário
+            acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+        } else {
+            alert("Para prosseguir é obrigatório preencher todos os campos!");
+        }
+    }
+
+    this.update = function (identificador) {
+        if (id_sendo_alterado != "") {
+            var nome_razao = document.getElementById("nome_razao").value;
+            var endereco = document.getElementById("endereco").value;
+            var telefone = document.getElementById("telefone").value;
+            var email = document.getElementById("email").value;
+            var cpf_cnpj = document.getElementById("cpf_cnpj").value;
+            var rg_ie = document.getElementById("rg_ie").value;
+            var cep = document.getElementById("cep").value;
+            var contato = document.getElementById("contato").value;
+            var info_add = document.getElementById("info_add").value;
+
+            if (nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '') {
+                xhttp.open("PUT", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + id_sendo_alterado + "&nome_razao=" + nome_razao + "&endereco=" + endereco + "&telefone=" + telefone + "&email=" + email + "&cpf_cnpj=" + cpf_cnpj + "&rg_ie=" + rg_ie + "&cep=" + cep + "&contato=" + contato + "&info_add=" + info_add, true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send();
+
+                id_sendo_alterado = "";
+                acessa_modulo(path_principal);
+            } else {
+                alert("Para prosseguir é obrigatório preencher todos os campos!");
+            }
+        } else {
+            id_sendo_alterado = identificador;
+            acessa_sub_modulo('update');
+        }
+    }
+
+    this.remove = function (identificador) {
+        if (confirm("Deseja realmente remover esse " + path_principal)) {
+            xhttp.open("DEvarE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send()
+            acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
+        }
+    }
 }
