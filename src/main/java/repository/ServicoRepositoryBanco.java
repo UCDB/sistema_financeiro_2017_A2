@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import model.Cliente;
 import model.Servico;
 
 public class ServicoRepositoryBanco {
@@ -63,13 +63,10 @@ public class ServicoRepositoryBanco {
 	
 	public void excluir(int id) {
 		try {
-			String sql = "delete from servico where id=?";
+			String sql = "DELETE FROM servico WHERE id_servico = "+id;
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
-			prepareStatement.setInt(1, id);
-			prepareStatement.execute();
-			
+			prepareStatement.execute();			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -79,19 +76,8 @@ public class ServicoRepositoryBanco {
 		List<Servico> lista = new ArrayList<>();
 
 		try {			
-			String sql = "select * from servico order by descricao";
-			/*if(serv.getDescricao() != null && !serv.getDescricao().equals("") )
-				sql = sql.concat(serv.getDescricao());
-			if(serv.getTipo() != null && !serv.getTipo().equals(""))
-				sql = sql.concat(" AND ").concat(sql);
-			if(serv.getValorServico() != null)
-				sql = sql.concat(" AND ").concat(sql);
-			if(serv.getValorMax() != null)
-				sql = sql.concat(" AND ").concat(sql);
-			if(serv.getValorMin() != null)
-				sql = sql.concat(" AND ").concat(sql);*/
-			
-				//sql = sql.concat (" order by descricao");
+			String sql = "select * from servico order by descricao";			
+				
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
@@ -104,7 +90,7 @@ public class ServicoRepositoryBanco {
 				Integer id_tiposervico = result.getInt("id_tiposervico");
 				Integer id_funcionario = result.getInt("id_funcionario");
 				Servico servico = new Servico(descricao,valorServico,valorMin,valorMax,id_tiposervico,id_funcionario);
-				
+				servico.setId_servico(id_servico);
 
 				lista.add(servico);
 
@@ -116,6 +102,29 @@ public class ServicoRepositoryBanco {
 		}
 
 		return lista;
+	}
+	
+	public Servico buscarPorId(Integer id) {
+		try {
+			String sql = "SELECT * FROM servico WHERE id_servico = "+id;
+			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
+			ResultSet result = prepareStatement.executeQuery();
+			if( result.next() ){
+				String descricao = result.getString("descricao");					
+				Double valorServico = Double.parseDouble(result.getString("valorservico"));
+				Double valorMin = Double.parseDouble(result.getString("valorminimo"));
+				Double valorMax = Double.parseDouble(result.getString("valormaximo"));				
+				Integer id_tiposervico = result.getInt("id_tiposervico");
+				Integer id_funcionario = result.getInt("id_funcionario");
+				Servico servico = new Servico(descricao,valorServico,valorMin,valorMax,id_tiposervico,id_funcionario);
+				
+				servico.setId_servico(id);
+				return servico;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

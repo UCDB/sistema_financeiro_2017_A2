@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Caixa;
+import model.Cliente;
 
 
 public class CaixaRepositoryBanco {
@@ -15,7 +16,7 @@ public class CaixaRepositoryBanco {
 	private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void cadastrar(Caixa caixa) {
-		String sql = "insert into caixa values (default,?,?,?,?,?,?,?)";
+		String sql = "insert into caixa values (default,?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
@@ -26,6 +27,7 @@ public class CaixaRepositoryBanco {
 			ps.setBoolean(4, caixa.getStatus());
 			ps.setString(2, caixa.getDescricao());
 			ps.setString(1, caixa.getData());
+			ps.setInt(8, caixa.getId_fornecedor());
 			
 			ps.execute();
 
@@ -60,13 +62,10 @@ public class CaixaRepositoryBanco {
 
 	public void excluir(int id) {
 		try {
-			String sql = "delete from caixa where id_caixa=?";
+			String sql = "DELETE FROM caixa WHERE id_caixa = "+id;
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
-			prepareStatement.setInt(1, id);
-			prepareStatement.execute();
-
+			prepareStatement.execute();			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -82,6 +81,7 @@ public class CaixaRepositoryBanco {
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {
+				Integer id_caixa = result.getInt("id_caixa");
 				String data = result.getString("data");
 				String descricao = result.getString("descricao");
 				Double valor = (result.getDouble("valor"));
@@ -92,7 +92,7 @@ public class CaixaRepositoryBanco {
 				Integer id_fornecedor = result.getInt("id_fornecedor");
 				
 				Caixa caix = new Caixa(data,descricao,valor,status,formapagamento,id_tipodespesa,id_cliente,id_fornecedor);
-				
+				caix.setId_caixa(id_caixa);
 
 				lista.add(caix);
 
@@ -104,6 +104,31 @@ public class CaixaRepositoryBanco {
 		}
 
 		return lista;
+	}
+	
+	public Caixa buscarPorId(Integer id) {
+		try {
+			String sql = "SELECT * FROM caixa WHERE id = "+id;
+			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
+			ResultSet result = prepareStatement.executeQuery();
+			if( result.next() ){
+				String data = result.getString("data");
+				String descricao = result.getString("descricao");
+				Double valor = (result.getDouble("valor"));
+				Boolean status = result.getBoolean("status");
+				Integer formapagamento = result.getInt("formapagamento");
+				Integer id_tipodespesa = result.getInt("id_tipodespesa");
+				Integer id_cliente = result.getInt("id_cliente");
+				Integer id_fornecedor = result.getInt("id_fornecedor");
+				
+				Caixa caix = new Caixa(data,descricao,valor,status,formapagamento,id_tipodespesa,id_cliente,id_fornecedor);
+				caix.setId_caixa(id);
+				return caix;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

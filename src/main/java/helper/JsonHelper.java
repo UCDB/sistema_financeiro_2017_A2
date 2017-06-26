@@ -6,25 +6,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import repository.ServicoRepositoryList;
-import repository.ServicoRepositoryBanco;
-import repository.ServicoRepository;
-
+//import repository.ServicoRepositoryList;
+//import repository.ServicoRepositoryBanco;
+//import repository.ServicoRepository;
 
 public class JsonHelper {
-
 	public String gerarJsonLista(List<?> lista) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		StringBuffer json = new StringBuffer("[");
 
 		for (int i = 0; i < lista.size(); i++) {
-
 			json.append(gerarJson(lista.get(i)));
 			if (i < lista.size() - 1)
 				json.append(",");
 		}
 		json.append("]");
 		return json.toString();
-
 	}
 
 	public String gerarJson(Object o) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
@@ -52,21 +48,11 @@ public class JsonHelper {
 				json.append(valor);
 				
 				if (qtdGetter  <  metodos.length-qtdGetter )
-					json.append(",");
-				
+					json.append(",");				
 			}
 		}
-		
+
 		json.append("}");
-		return json.toString();
-		
+		return json.toString();		
 	}
-
-	
-	
-	
-	
-	
-	
-
 }
