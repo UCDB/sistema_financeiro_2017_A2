@@ -101,10 +101,10 @@
     </index>
    </folder>
   </table>
-  <table id="TAB28" populated="true" UUID="757a5768-49b9-40d3-97c7-59180683c24d" name="medidaproduto" objectType="TABLE" physicalName="medidaproduto" >
+  <table id="TAB28" populated="true" UUID="757a5768-49b9-40d3-97c7-59180683c24d" name="medida_produto" objectType="TABLE" physicalName="medida_produto" >
    <remarks></remarks>
    <folder id="FOLTAB281" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL29" populated="true" UUID="1598a112-1f16-42d6-8b63-4e05b387d1e6" autoIncrement="true" autoIncrementSequenceName="medidaproduto_id_medidaproduto_seq" defaultValue="" name="id_medidaproduto" nullable="0" physicalName="id_medidaproduto" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL29" populated="true" UUID="1598a112-1f16-42d6-8b63-4e05b387d1e6" autoIncrement="true" autoIncrementSequenceName="medida_produto_id_medidaproduto_seq" defaultValue="" name="id_medidaproduto" nullable="0" physicalName="id_medidaproduto" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
     <column id="COL30" populated="true" UUID="dba478af-dd23-4dcf-a2e8-9f2e1c020ff8" autoIncrement="false" autoIncrementSequenceName="medidaproduto_tipo_seq" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -116,7 +116,7 @@
     <folder id="FOLTAB282" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB284" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX31" populated="true" UUID="0c06608b-84d4-4a6e-9b1d-613e2038fa1d" clustered="false" name="medidaproduto_pk" physicalName="medida_produto_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX31" populated="true" UUID="0c06608b-84d4-4a6e-9b1d-613e2038fa1d" clustered="false" name="medida_produto_pk" physicalName="medida_produto_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC32" populated="true" UUID="92fffac1-b9fb-487c-8a13-cb21fc052c21" ascendingOrDescending="UNSPECIFIED" column-ref="COL29" name="id_medidaproduto" physicalName="id_medidaproduto" />
     </index>
    </folder>
@@ -252,10 +252,10 @@
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="public"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="public"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="1.1892071150027206" viewportX="287" viewportY="339" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="1.1892071150027206" viewportX="236" viewportY="339" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="533" y="388" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB23" x="953" y="550" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB28" x="957" y="626" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
