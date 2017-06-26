@@ -2,62 +2,43 @@ package model;
 
 public class Fornecedor {
 	private	Integer id;
-	private String nome;
-	private String endereco;
-	private String cpf_cnpj;
-	private String rg_ie;
-	private String telefone;
-	private String cep;
-	private String contato;
-	private String info;
-	private String email;
-	
-	//Construtor
+	private String nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add;
 
-	public Fornecedor() {
-		super();
-	}
-	public Fornecedor(String nome, String endereco, String cpf_cnpj, String rg_ie, String telefone, String cep,
-			String contato, String info, String email) {
-		super();
-		this.nome = nome;
-		this.endereco = endereco;
-		this.cpf_cnpj = cpf_cnpj;
-		this.rg_ie = rg_ie;
-		this.telefone = telefone;
-		this.cep = cep;
-		this.contato = contato;
-		this.info = info;
-		this.email = email;
+	public Fornecedor(String nome_razao, String endereco, String telefone, String email, String cpf_cnpj, String rg_ie, String cep, String contato, String info_add) {
+		this.nome_razao	= nome_razao;
+		this.endereco 	= endereco;
+		this.telefone 	= telefone;
+		this.email 		= email;
+		this.cpf_cnpj 	= cpf_cnpj;
+		this.rg_ie 		= rg_ie;
+		this.cep 		= cep;
+		this.contato 	= contato;
+		this.info_add 	= info_add;
 	}	
-	
+
 	//Getters
 
-	public Integer getId() {return id;}
-	public String getNome() {		return nome;	}
-	public String getEndereco() {		return endereco;	}
-	public String getCPF_CNPJ() {		return cpf_cnpj;	}
-	public String getRG_IE() {		return rg_ie;	}
-	public String getTelefone() {		return telefone;	}
-	public String getCEP() {		return cep;	}
-	public String getContato() {		return contato;	}
-	public String getInfo() {		return info;	}
-	public String getEmail() {		return email;	}
+	public Integer getId() 						{return id;}
+	public String getNomeRazao() 				{return nome_razao;}
+	public String getEndereco() 				{return endereco;}
+	public String getTelefone() 				{return telefone;}
+	public String getEmail() 					{return email;}
+	public String getCpfCnpj() 					{return cpf_cnpj;}
+	public String getRgIe() 					{return rg_ie;	}
+	public String getCep() 						{return cep;}
+	public String getContato() 					{return contato;}
+	public String getInfoAdd() 					{return info_add;}
 	
 	//Setters
 
-	public void setId(Integer id) {		this.id = id;	}
-	public void setNome(String nome) {		this.nome = nome;	}
-	public void setEndereco(String endereco) {		this.endereco = endereco;	}
-	public void setCPF_CNPJ(String cPF_CNPJ) {		cpf_cnpj = cPF_CNPJ;	}
-	public void setRG_IE(String rG_IE) {		rg_ie = rG_IE;	}
-	public void setTelefone(String telefone) {		this.telefone = telefone;	}
-	public void setCEP(String cep) {		this.cep = cep;	}
-	public void setContato(String contato) {		this.contato = contato;	}
-	public void setInfo(String info) {		this.info = info;	}
-	public void setEmail(String email) {		this.email = email;	}
-	
-	
-	
-
+	public void setId(Integer id) 				{this.id = id;}
+	public void setNomeRazao(String nome_razao) {this.nome_razao = nome_razao;}
+	public void setEndereco(String endereco) 	{this.endereco = endereco;}
+	public void setTelefone(String telefone) 	{this.telefone = telefone;}
+	public void setEmail(String email) 			{this.email = email;}
+	public void setCpfCnpj(String cpf_cnpj) 	{this.cpf_cnpj = cpf_cnpj;}
+	public void setRgIe(String rg_ie) 			{this.rg_ie = rg_ie;}
+	public void setCep(String cep) 				{this.cep = cep;}
+	public void setContato(String contato) 		{this.contato = contato;}
+	public void setInfoAdd(String info_add) 	{this.info_add = info_add;}
 }

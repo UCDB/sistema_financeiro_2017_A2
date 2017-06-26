@@ -1,4 +1,4 @@
-var xhttp = new XMLHttpRequest();
+let xhttp = new XMLHttpRequest();
 var path_principal = "";
 var id_sendo_alterado = "";
 
@@ -16,6 +16,7 @@ function acessa_modulo(caminho){
     $(".menu_superior").removeClass("active");
 	document.getElementById(caminho).setAttribute("class", "active");	
 }
+
 
 function acessa_sub_modulo(caminho){
 	xhttp.onreadystatechange = function() { document.getElementById("conteudo_submenu").innerHTML = this.responseText; };
@@ -57,218 +58,251 @@ function acessa_sub_modulo(caminho){
 	xhttp.send();
 }
 
-if (path_principal == 'produto') {
-    function carrega_tabela_principal() {
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var indice = 0;
-                var aux = this.responseText.replace('[{', '');
-                aux = aux.replace('}]', '');
+function carrega_tabela_principal(){	
+	xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	var indice = 0;
+        	var aux = this.responseText.replace('[{','');
+				aux = aux.replace('}]','');
 
-                if (aux.indexOf('},{') == -1) { // string de jSon
-                    // fazer ainda
-                } else { // lista de jSon
-                    var conteudo_tabela = "";
-                    var elementos_internos = "";
-                    elementos = aux.split('},{');
-                    elementos.forEach(function (e) {
-                        console.log("Elemento: " + e);
-                        var id_da_vez = "";
-                        elementos_internos = e.split(',');
-                        elementos_internos.forEach(function (ei) {
-                            var campo_valor = ei.split(':');
-                            if (campo_valor[0] === "id") {
-                                conteudo_tabela += '<tr id="' + campo_valor[1] + '">';
-                                id_da_vez = campo_valor[1];
-                            } else if (campo_valor[0] === "nomerazao") {
-                                conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                            } else if (campo_valor[0] === "email") {
-                                conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                            } else if (campo_valor[0] === "telefone") {
-                                conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
-                            }
-                        }); // fim foreach elementos internos
-                        conteudo_tabela += '<td align="center"> <img title="Alterar Cliente" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(' + id_da_vez + ')"> <img title="Excluir Cliente" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(' + id_da_vez + ')"> </td>';
-                        conteudo_tabela += '</tr>';
-                        indice++;
-                    }); // fim foreach elementos
-                    document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
-                } // fim else
-            }
-        };
-        xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=all", true);
-        xhttp.send();
-    }
-
-}else {
-    function carrega_tabela_principal() {
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var indice = 0;
-                var aux = this.responseText.replace('[{', '');
-                aux = aux.replace('}]', '');
-
-                if (aux.indexOf('},{') == -1) { // string de jSon
-                    // fazer ainda
-                } else { // lista de jSon
-                    var conteudo_tabela = "";
-                    var elementos_internos = "";
-                    elementos = aux.split('},{');
-                    elementos.forEach(function (e) {
-                        console.log("Elemento: " + e);
-                        var id_da_vez = "";
-                        elementos_internos = e.split(',');
-                        elementos_internos.forEach(function (ei) {
-                            var campo_valor = ei.split(':');
-                            if (campo_valor[0] === "id") {
-                                conteudo_tabela += '<tr id="' + campo_valor[1] + '">';
-                                id_da_vez = campo_valor[1];
-                            } else if (campo_valor[0] === "nomerazao") {
-                                conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                            } else if (campo_valor[0] === "email") {
-                                conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                            } else if (campo_valor[0] === "telefone") {
-                                conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
-                            }
-                        }); // fim foreach elementos internos
-                        conteudo_tabela += '<td align="center"> <img title="Alterar Cliente" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(' + id_da_vez + ')"> <img title="Excluir Cliente" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(' + id_da_vez + ')"> </td>';
-                        conteudo_tabela += '</tr>';
-                        indice++;
-                    }); // fim foreach elementos
-                    document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
-                } // fim else
-            }
-        };
-        xhttp.open("GET", "/sistema_financeiro_2017_A/" + path_principal + "?id=all", true);
-        xhttp.send();
-    }
+			if( aux.indexOf('},{') == -1 ){ // string de jSon
+				// fazer ainda
+			}else{ // lista de jSon
+				var conteudo_tabela = "";
+				let elementos_internos = "";
+				elementos = aux.split('},{');
+				elementos.forEach(function(e){
+					console.log("Elemento: "+e);
+					let id_da_vez = "";
+					elementos_internos = e.split(',');
+					elementos_internos.forEach(function(ei){
+						var campo_valor = ei.split(':');
+						if( campo_valor[0] === "id" ){
+							conteudo_tabela += '<tr id="'+campo_valor[1]+'">';
+							id_da_vez = campo_valor[1];
+						}else if( campo_valor[0] === "nomerazao" ){
+							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
+						}else if( campo_valor[0] === "email" ){
+							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
+						}else if( campo_valor[0] === "telefone" ){
+							conteudo_tabela += '<td align="center">'+campo_valor[1]+'</td>';
+						}
+					}); // fim foreach elementos internos
+					conteudo_tabela += '<td align="center"> <img title="Alterar Cliente" src="media/icons/update.png" width="30" height="30" onclick="objeto.update('+id_da_vez+')"> <img title="Excluir Cliente" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove('+id_da_vez+')"> </td>';
+					conteudo_tabela += '</tr>';
+					indice++;
+				}); // fim foreach elementos
+				document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
+			} // fim else
+        }
+    };
+    xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id=all", true);
+	xhttp.send();
 }
 
-var objeto = new function () {
-    this.create = function () {
-        var nome_razao = document.getElementById("nome_razao").value;
-        var endereco = document.getElementById("endereco").value;
-        var telefone = document.getElementById("telefone").value;
-        var email = document.getElementById("email").value;
-        var cpf_cnpj = document.getElementById("cpf_cnpj").value;
-        var rg_ie = document.getElementById("rg_ie").value;
-        var cep = document.getElementById("cep").value;
-        var contato = document.getElementById("contato").value;
-        var info_add = document.getElementById("info_add").value;
+var objeto = new function(){
+	this.create = function(){
+		var nome_razao	= document.getElementById("nome_razao").value;
+		var endereco 	= document.getElementById("endereco").value;
+		var telefone 	= document.getElementById("telefone").value;
+		var email 		= document.getElementById("email").value;
+		var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
+		var rg_ie 		= document.getElementById("rg_ie").value;
+		var cep 		= document.getElementById("cep").value;
+		var contato 	= document.getElementById("contato").value;
+		var info_add 	= document.getElementById("info_add").value;
 
-        xhttp.open("POST", "/sistema_financeiro_2017_A/" + path_principal, true);
-         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("nome_razao=" + nome_razao + "&endereco=" + endereco + "&telefone=" + telefone + "&email=" + email + "&cpf_cnpj=" + cpf_cnpj + "&rg_ie=" + rg_ie + "&cep=" + cep + "&contato=" + contato + "&info_add=" + info_add);
+		if( nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '' ){
+			xhttp.open("POST", "/sistema_financeiro_2017_A/"+path_principal, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("nome_razao="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf_cnpj="+cpf_cnpj+"&rg_ie="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
 
-        alert(path_principal + " cadastrado com sucesso!"); // retorno ao usuário
-        acessa_modulo(path_principal); // volta pra index principal do modulo ativo
-    }
+			alert(path_principal+" cadastrado com sucesso!"); // retorno ao usuário
+			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+		}else{
+			alert("Para prosseguir é obrigatório preencher todos os campos!");
+		}
+	}
 
-    this.update = function (identificador) {
-        if (id_sendo_alterado != "") {
-            var nome_razao = document.getElementById("nome_razao").value;
-            var endereco = document.getElementById("endereco").value;
-            var telefone = document.getElementById("telefone").value;
-            var email = document.getElementById("email").value;
-            var cpf_cnpj = document.getElementById("cpf_cnpj").value;
-            var rg_ie = document.getElementById("rg_ie").value;
-            var cep = document.getElementById("cep").value;
-            var contato = document.getElementById("contato").value;
-            var info_add = document.getElementById("info_add").value;
+	this.update = function(identificador){
+		if( id_sendo_alterado != "" ){
+			var nome_razao	= document.getElementById("nome_razao").value;
+			var endereco 	= document.getElementById("endereco").value;
+			var telefone 	= document.getElementById("telefone").value;
+			var email 		= document.getElementById("email").value;
+			var cpf_cnpj	= document.getElementById("cpf_cnpj").value;
+			var rg_ie 		= document.getElementById("rg_ie").value;
+			var cep 		= document.getElementById("cep").value;
+			var contato 	= document.getElementById("contato").value;
+			var info_add 	= document.getElementById("info_add").value;
 
-            if (nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '') {
-                xhttp.open("PUT", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + id_sendo_alterado + "&nome_razao=" + nome_razao + "&endereco=" + endereco + "&telefone=" + telefone + "&email=" + email + "&cpf_cnpj=" + cpf_cnpj + "&rg_ie=" + rg_ie + "&cep=" + cep + "&contato=" + contato + "&info_add=" + info_add, true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send();
+			if( nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '' ){
+				xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal+"?id="+id_sendo_alterado+"&nome_razao="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf_cnpj="+cpf_cnpj+"&rg_ie="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add, true);
+				xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xhttp.send();
 
-                id_sendo_alterado = "";
-                acessa_modulo(path_principal);
-            } else {
-                alert("Para prosseguir é obrigatório preencher todos os campos!");
-            }
-        } else {
-            id_sendo_alterado = identificador;
-            acessa_sub_modulo('update');
-        }
-    }
+				id_sendo_alterado = "";
+				acessa_modulo(path_principal);
+			}else{
+				alert("Para prosseguir é obrigatório preencher todos os campos!");
+			}
+		}else{
+			id_sendo_alterado = identificador;
+			acessa_sub_modulo('update');
+		}
+	}
 
-    this.remove = function (identificador) {
-        if (confirm("Deseja realmente remover esse " + path_principal)) {
-            xhttp.open("DEvarE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send()
-            acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
-        }
-    }
+	this.remove = function(identificador){
+		if(confirm("Deseja realmente remover esse "+path_principal)){
+			xhttp.open("DELETE", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send()
+			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
+		}
+	}
+}
+var objetoServ = new function(){
+	this.create = function(){
+		var descricao	= document.getElementById("descricao").value;
+		var valorservico 	= document.getElementById("valorservico").value;
+		var valorminimo 	= document.getElementById("valorminimo").value;
+		var valormaximo 		= document.getElementById("valormaximo").value;
+		var id_tiposervico	= document.getElementById("id_tiposervico").value;
+		var id_funcionario 		= document.getElementById("id_funcionario").value;
+		
+
+		if( descricao != '' && valorservico != '' && valorminimo != '' && valormaximo != '' && id_tiposervico != '' && id_funcionario != '' ){
+				
+
+			xhttp.open("POST", "/sistema_financeiro_2017_A/"+path_principal, true);
+			
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+			xhttp.send("descricao="+descricao+"&valorservico="+valorservico+"&valorminimo="+valorminimo+"&valormaximo="+valormaximo+"&id_tiposervico="+id_tiposervico+"&id_funcionario="+id_funcionario);
+
+			alert(path_principal+" cadastrado com sucesso!"); // retorno ao usuário
+			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+		}else{
+			alert("Para prosseguir é obrigatório preencher todos os campos!");
+		}
+	}
+
+	this.update = function(identificador){
+		if( id_sendo_alterado != "" ){ // PRONTO
+			var descricao	= document.getElementById("descricao").value;
+			var valorservico 	= document.getElementById("valorservico").value;
+			var valorminimo 	= document.getElementById("valorminimo").value;
+			var valormaximo 		= document.getElementById("valormaximo").value;
+			var id_tiposervico	= document.getElementById("id_tiposervico").value;
+			var id_funcionario 		= document.getElementById("id_funcionario").value;
+
+			xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("descricao="+descricao+"&valorservico="+valorservico+"&valorminimo="+valorminimo+"&valormaximo="+valormaximo+"&id_tiposervico="+id_tiposervico+"&id_funcionario="+id_funcionario);
+			//xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
+
+			id_sendo_alterado = "";
+
+			acessa_modulo(path_principal);
+		}else{ // FAZENDO
+			id_sendo_alterado = identificador;
+			
+			var retorno = "";
+			
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                	retorno = this.responseText; console.log(this.responseText);
+                }
+            };	
+
+            xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
+			xhttp.send();
+
+			acessa_sub_modulo('update');
+
+			console.log("Retorno: "+retorno);
+		}
+	}
+
+	this.remove = function(identificador){
+		if(confirm("Deseja realmente remover esse "+path_principal)){
+			xhttp.open("DELETE", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("id="+identificador)
+			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
+		}
+	}
 }
 
-var objetoProduto = new function () {
-    this.create = function () {
-        var descricao = document.getElementById("descricao").value;
-        var codbarras = document.getElementById("codbarras").value;
-        var precocusto = document.getElementById("precocusto").value;
-        var precovenda = document.getElementById("precovenda").value;
-        var precominvenda = document.getElementById("precominvenda").value;
-        var precomaxvenda = document.getElementById("precomaxvenda").value;
-        var comissaovenda = document.getElementById("comissaovenda").value;
-        var qtdestoque = document.getElementById("qtdestoque").value;
-        var qtdminestoque = document.getElementById("qtdminestoque").value;
-        var altura = document.getElementById("altura").value;
-        var peso = document.getElementById("peso").value;
-        var largura = document.getElementById("largura").value;
-        var profundidade = document.getElementById("profundidade").value;
-        var validade = document.getElementById("validade").value;
-        var medidaproduto = document.getElementById("medidaproduto").value;
-        var tipoproduto = document.getElementById("tipoproduto").value;
-        var fornecedor = document.getElementById("fornecedorCampo").value;
-        var funcionario = document.getElementById("funcionarioCampo").value;
+var objetoCaixa = new function(){
+	this.create = function(){
+		var data	= document.getElementById("data").value;
+		var descricao	= document.getElementById("descricao_caixa").value;
+		var valor 	= document.getElementById("valor_caixa").value;
+		var status 	= document.getElementById("status").value;
+		var formapagamento 		= document.getElementById("formapagamento").value;
+		var id_tipodespesa	= document.getElementById("id_tipodespesa").value;
+		var id_cliente		= document.getElementById("id_cliente_caixa").value;
+		var id_fornecedor		= document.getElementById("id_fornecedor").value;
+		
 
-        if (descricao != '' && codbarras != '' && precocusto != '' && precovenda != '' && precominvenda != '' && precomaxvenda != '' && comissaovenda != '' && qtdestoque != '' && qtdminestoque != '' && altura != '' && peso != '' && largura != '' && profundidade != '' && validade != '' && medidaproduto != '' && tipoproduto != '' && fornecedor != '' && funcionario != '') {
-            xhttp.open("POST", "/sistema_financeiro_2017_A/" + path_principal, true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("descricao=" + descricao + "&codbarras=" + codbarras + "&id_fornecedor=" + fornecedor + "&precocusto=" + precocusto + "&precovenda=" + precovenda + "&precominvenda=" + precominvenda + "&precomaxvenda=" + precomaxvenda + "&comissaovenda=" + comissaovenda + "&qtdestoque=" + qtdestoque + "&qtdminestoque=" + qtdminestoque + "&altura=" + altura + "&peso=" + peso + "&largura=" + largura + "&profundidade=" + profundidade + "&id_medidaproduto=" + medidaproduto + "&id_tipoproduto=" + tipoproduto + "&id_funcionario=" + funcionario + "&validade=" + validade);
+		if( data != '' && descricao != '' && valor != '' && status != '' && formapagamento != '' && id_tipodespesa != '' && id_cliente != '' && id_fornecedor != '' ){
+			xhttp.open("POST", "/sistema_financeiro_2017_A/"+path_principal, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("data="+data+"&descricao="+descricao+"&valor="+valor+"&status="+status+"&formapagamento="+formapagamento+"&id_tipodespesa="+id_tipodespesa+"&id_cliente="+id_cliente+"&id_fornecedor="+id_fornecedor);
 
-            alert(path_principal + " cadastrado com sucesso!"); // retorno ao usuário
-            acessa_modulo(path_principal); // volta pra index principal do modulo ativo
-        } else {
-            alert("Para prosseguir é obrigatório preencher todos os campos!");
-        }
-    }
+			alert(path_principal+" cadastrado com sucesso!"); // retorno ao usuário
+			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
+		}else{
+			alert("Para prosseguir é obrigatório preencher todos os campos!");
+		}
+	}
 
-    this.update = function (identificador) {
-        if (id_sendo_alterado != "") {
-            var nome_razao = document.getElementById("nome_razao").value;
-            var endereco = document.getElementById("endereco").value;
-            var telefone = document.getElementById("telefone").value;
-            var email = document.getElementById("email").value;
-            var cpf_cnpj = document.getElementById("cpf_cnpj").value;
-            var rg_ie = document.getElementById("rg_ie").value;
-            var cep = document.getElementById("cep").value;
-            var contato = document.getElementById("contato").value;
-            var info_add = document.getElementById("info_add").value;
+	this.update = function(identificador){
+		if( id_sendo_alterado != "" ){ // PRONTO
+			var data	= document.getElementById("data").value;
+			var descricao	= document.getElementById("descricao_caixa").value;
+			var valor 	= document.getElementById("valor_caixa").value;
+			var status 	= document.getElementById("status").value;
+			var formapagamento 		= document.getElementById("formapagamento").value;
+			var id_tipodespesa	= document.getElementById("id_tipodespesa").value;
+			var id_cliente		= document.getElementById("id_cliente_caixa").value;
+			var id_fornecedor		= document.getElementById("id_fornecedor").value;
 
-            if (nome_razao != '' && endereco != '' && telefone != '' && email != '' && cpf_cnpj != '' && rg_ie != '' && cep != '' && contato != '' && info_add != '') {
-                xhttp.open("PUT", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + id_sendo_alterado + "&nome_razao=" + nome_razao + "&endereco=" + endereco + "&telefone=" + telefone + "&email=" + email + "&cpf_cnpj=" + cpf_cnpj + "&rg_ie=" + rg_ie + "&cep=" + cep + "&contato=" + contato + "&info_add=" + info_add, true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send();
+			xhttp.open("PUT", "/sistema_financeiro_2017_A/"+path_principal, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("data="+data+"&descricao="+descricao+"&valor="+valor+"&status="+status+"&formapagamento="+formapagamento+"&id_tipodespesa="+id_tipodespesa+"&id_cliente="+id_cliente+"&id_fornecedor="+id_fornecedor);
+		//	xhttp.send("id="+id_sendo_alterado+"nome="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf="+cpf_cnpj+"&rg="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
 
-                id_sendo_alterado = "";
-                acessa_modulo(path_principal);
-            } else {
-                alert("Para prosseguir é obrigatório preencher todos os campos!");
-            }
-        } else {
-            id_sendo_alterado = identificador;
-            acessa_sub_modulo('update');
-        }
-    }
+			id_sendo_alterado = "";
 
-    this.remove = function (identificador) {
-        if (confirm("Deseja realmente remover esse " + path_principal)) {
-            xhttp.open("DEvarE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send()
-            acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
-        }
-    }
+			acessa_modulo(path_principal);
+		}else{ // FAZENDO
+			id_sendo_alterado = identificador;
+			
+			var retorno = "";
+			
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                	retorno = this.responseText; console.log(this.responseText);
+                }
+            };	
+
+            xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
+			xhttp.send();
+
+			acessa_sub_modulo('update');
+
+			console.log("Retorno: "+retorno);
+		}
+	}
+
+	this.remove = function(identificador){
+		if(confirm("Deseja realmente remover esse "+path_principal)){
+			xhttp.open("DELETE", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
+			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhttp.send("id="+identificador)
+			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
+		}
+	}
 }

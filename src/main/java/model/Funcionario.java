@@ -2,77 +2,43 @@ package model;
 
 public class Funcionario {
 	private Integer id;
+	private String nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add;
+
+	public Funcionario(String nome_razao, String endereco, String telefone, String email, String cpf_cnpj, String rg_ie, String cep, String contato, String info_add ){
+		this.nome_razao = nome_razao;
+		this.endereco 	= endereco;
+		this.telefone 	= telefone;
+		this.email 		= email;
+		this.cpf_cnpj 	= cpf_cnpj;
+		this.rg_ie 		= rg_ie;
+		this.cep 		= cep;
+		this.contato 	= contato;
+		this.info_add 	= info_add;
+	}
+
+	/* Getters */
 	
-	private String nome,endereco,cpf,rg,telefone,cep,email,infoAdc;
+	public Integer getId() 						{return id;}
+	public String getNomeRazao() 				{return nome_razao;}
+	public String getEndereco() 				{return endereco;}
+	public String getTelefone() 				{return telefone;}
+	public String getEmail() 					{return email;}
+	public String getCpfCnpj() 					{return cpf_cnpj;}
+	public String getRgIe() 					{return rg_ie;}
+	public String getCep() 						{return cep;}
+	public String getContato() 					{return contato;}
+	public String getInfoAdd() 					{return info_add;}
+
+	/* Setters */
 	
-	public Funcionario(){
-		
-	}
-	public Funcionario(String nome, String endereco, String cpf, String rg, String telefone, String cep, String email, String infoAdc ){
-	
-		this.nome = nome;
-		this.endereco = endereco;
-		this.cpf = cpf;
-		this.rg = rg;
-		this.telefone = telefone;
-		this.cep = cep;
-		this.email = email;
-		this.infoAdc = infoAdc;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	public String getRg() {
-		return rg;
-	}
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	public String getCep() {
-		return cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getInfoAdc() {
-		return infoAdc;
-	}
-	public void setInfoAdc(String infoAdc) {
-		this.infoAdc = infoAdc;
-	}
-	
-	
+	public void setId(Integer id) 				{this.id = id;}
+	public void setNomeRazao(String nome_razao) {this.nome_razao = nome_razao;}
+	public void setEndereco(String endereco) 	{this.endereco = endereco;}
+	public void setTelefone(String telefone) 	{this.telefone = telefone;}
+	public void setEmail(String email) 			{this.email = email;}
+	public void setCpfCnpj(String cpf_cnpj) 	{this.cpf_cnpj = cpf_cnpj;}
+	public void setRgIe(String rg_ie) 			{this.rg_ie = rg_ie;}
+	public void setCep(String cep) 				{this.cep = cep;}
+	public void setContato(String contato) 		{this.contato = contato;}
+	public void setInfoAdd(String info_add) 	{this.info_add = info_add;}
 }
