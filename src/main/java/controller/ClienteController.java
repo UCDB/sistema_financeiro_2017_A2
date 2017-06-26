@@ -23,12 +23,12 @@ public class ClienteController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String nome_razao	= req.getParameter("nome");
+		String nome_razao	= req.getParameter("nome_razao");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cpf_cpnj 	= req.getParameter("cpf");
-		String rg_ie 		= req.getParameter("rg");
+		String cpf_cpnj 	= req.getParameter("cpf_cnpj");
+		String rg_ie 		= req.getParameter("rg_ie");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add		= req.getParameter("info_add");
@@ -65,7 +65,7 @@ public class ClienteController extends HttpServlet {
 
 		Cliente cl = new Cliente(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 		cl.setId(id);
-		
+
 		crb.alterar(cl);
 	}
 
@@ -74,7 +74,7 @@ public class ClienteController extends HttpServlet {
 		String idb = req.getParameter("id");
 		//System.out.println("IDB: "+idb);
 		if( idb.equals("all") ){
-		    try {
+			try {
 				json = jsonHelper.gerarJsonLista(crb.buscarTodos());
 				resp.getWriter().print(json);
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {

@@ -13,7 +13,7 @@ public class ClienteRepositoryBanco {
 	private Connection conexao = ConexaoFactory.criarConexao();
 
 	public void cadastrar(Cliente cl) {
-		String sql = "INSERT INTO cliente (nome,endereco,telefone,email,cpf,rg,cep,contato,info_add)"
+		String sql = "INSERT INTO cliente (nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add)"
 				   + "VALUES ('"+cl.getNomeRazao()+"','"+cl.getEndereco()+"','"+cl.getTelefone()+"','"+cl.getEmail()+"','"+cl.getCpfCnpj()+"','"+cl.getRgIe()+"','"+cl.getCep()+"','"+cl.getContato()+"','"+cl.getInfoAdd()+"')";		
 		
 		try {
@@ -27,9 +27,8 @@ public class ClienteRepositoryBanco {
 
 	public void alterar(Cliente cl){
 		String sql = "UPDATE cliente "
-				   + "SET nome = ?, endereco = ?, telefone = ?, email = ?, cpf = ?, rg = ?, cep = ?, contato = ?, info_add = ? "
+				   + "SET nome_razao = ?, endereco = ?, telefone = ?, email = ?, cpf_cnpj = ?, rg_ie = ?, cep = ?, contato = ?, info_add = ? "
 				   + "WHERE id=?";
-
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1, cl.getNomeRazao());
@@ -42,9 +41,8 @@ public class ClienteRepositoryBanco {
 			ps.setString(8, cl.getContato());
 			ps.setString(9, cl.getInfoAdd());
 			ps.setInt(10, cl.getId());
-
+			
 			ps.execute();
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,23 +63,25 @@ public class ClienteRepositoryBanco {
 		List<Cliente> lista = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM cliente ORDER BY nome";
+			String sql = "SELECT * FROM cliente ORDER BY nome_razao";
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {
 				int id 				= result.getInt("id");
-				String nome_razao 	= result.getString("nome");
+				String nome_razao 	= result.getString("nome_razao");
 				String endereco 	= result.getString("endereco");
 				String telefone 	= result.getString("telefone");
 				String email 		= result.getString("email");
-				String cpf_cnpj 	= result.getString("cpf");
-				String rg_ie 		= result.getString("rg");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie 		= result.getString("rg_ie");
 				String cep 			= result.getString("cep");
 				String contato		= result.getString("contato");
 				String info_add		= result.getString("info_add");
-
-				prepareStatement.executeQuery();
+				
+				Cliente cl = new Cliente(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
+				cl.setId(id);
+				lista.add(cl);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,12 +95,12 @@ public class ClienteRepositoryBanco {
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 			if( result.next() ){
-				String nome_razao 	= result.getString("nome");
+				String nome_razao 	= result.getString("nome_razao");
 				String endereco 	= result.getString("endereco");
 				String telefone 	= result.getString("telefone");
 				String email 		= result.getString("email");
-				String cpf_cnpj 	= result.getString("cpf");
-				String rg_ie 		= result.getString("rg");
+				String cpf_cnpj 	= result.getString("cpf_cnpj");
+				String rg_ie 		= result.getString("rg_ie");
 				String cep 			= result.getString("cep");
 				String contato		= result.getString("contato");
 				String info_add		= result.getString("info_add");
