@@ -270,7 +270,8 @@ var objeto = new function(){
 			
 			alert(path_principal+" removido com sucesso!");
 			
-			document.getElementById("linha_"+identificador).parentNode.removeChild(document.getElementById("linha_"+identificador));
+			acessa_modulo(path_principal);
+			//document.getElementById("linha_"+identificador).parentNode.removeChild(document.getElementById("linha_"+identificador));
 		}
 	}
 }
