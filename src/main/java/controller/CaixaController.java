@@ -76,8 +76,7 @@ public class CaixaController extends HttpServlet{
 	}
 	
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Caixa caix = (Caixa) RottaUtils.populaReq(new Caixa(), req.getParameterMap());		
-		
+		Caixa caix = (Caixa) RottaUtils.populaReq(new Caixa(), req.getParameterMap());	
 		
 		caixaRepository.alterar(caix);
 	
