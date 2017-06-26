@@ -102,44 +102,52 @@ function carrega_tabela_principal(){
 			var coluna_email = "";
 			var coluna_telefone = "";
 
-			if( aux.indexOf('},{') == -1 ){ // string de jSon
-				if( aux != "" ){
-					// existe pelo menos um registro para ser visualizado
-					var linha_tabela = "";
-					
-					elementos_internos = aux.split(',');
+			if( aux.indexOf('},{') == -1 ){ // string de jSon				
+				// existe pelo menos um registro para ser visualizado
+				var linha_tabela = "";
+				
+				elementos_internos = aux.split(',');
 
-					elementos_internos.forEach(function(ei){
-						var campo_valor = ei.split(':');
-						if( campo_valor[0] === "id" ){
-							
-							linha_tabela += '<tr id="linha_'+campo_valor[1]+'">';
-							console.log("Criando TR Tabela com ID: "+campo_valor[1]);
-							id_da_vez = campo_valor[1];
+				var entrou = false;
+				
+				elementos_internos.forEach(function(ei){
+					var campo_valor = ei.split(':');
+					if( campo_valor[0] === "id" ){
 						
-						}else if( campo_valor[0] === "nomerazao" ){
-							
-							coluna_nome_razao = '<td>'+campo_valor[1]+'</td>';
-							console.log("Coluna Nome Razão: "+campo_valor[1]);
+						entrou = true;
+						linha_tabela += '<tr id="linha_'+campo_valor[1]+'">';
+						console.log("Criando TR Tabela com ID: "+campo_valor[1]);
+						id_da_vez = campo_valor[1];
+					
+					}else if( campo_valor[0] === "nomerazao" ){
 						
-						}else if( campo_valor[0] === "email" ){
-							
-							coluna_email = '<td>'+campo_valor[1]+'</td>';
-							console.log("Coluna E-mail: "+campo_valor[1]);
+						entrou = true;
+						coluna_nome_razao = '<td>'+campo_valor[1]+'</td>';
+						console.log("Coluna Nome Razão: "+campo_valor[1]);
+					
+					}else if( campo_valor[0] === "email" ){
 						
-						}else if( campo_valor[0] === "telefone" ){
-							
-							coluna_telefone = '<td align="center">'+campo_valor[1]+'</td>';
-							console.log("Coluna Telefone: "+campo_valor[1]);
+						entrou = true;
+						coluna_email = '<td>'+campo_valor[1]+'</td>';
+						console.log("Coluna E-mail: "+campo_valor[1]);
+					
+					}else if( campo_valor[0] === "telefone" ){
 						
-						}
-					}); // fim foreach elementos internos
+						entrou = true;
+						coluna_telefone = '<td align="center">'+campo_valor[1]+'</td>';
+						console.log("Coluna Telefone: "+campo_valor[1]);
+					
+					}
+				}); // fim foreach elementos internos
+				if( entrou ){ // passou pelo foreach
+					//alert("if");
 					linha_tabela += coluna_nome_razao+coluna_email+coluna_telefone;
 					linha_tabela += '<td align="center"> <img title="Alterar '+path_principal+'" src="media/icons/update.png" width="30" height="30" onclick="objeto.update('+id_da_vez+')"> <img title="Excluir '+path_principal+'" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove('+id_da_vez+')"> </td>';
 					linha_tabela += '</tr>';
-				}else{
-					// modulo vazio, nenhum registro, mensagem de vazio
-					linha_tabela = '<tr id="vazio"><td align="center" colspan="4">Nenhum Registro Encontrado!</td></tr>';
+				}else{ // nao entrou no foreach, linha_vazia
+					//alert("else");
+					// modulo linha_vazia, nenhum registro, mensagem de linha_vazia
+					linha_tabela = '<tr ><td align="center" class="linha_vazia" colspan="4">Nenhum Registro Encontrado!</td></tr>';
 				}
 			}else{ // lista de jSon
 				var linha_tabela 	= "";

@@ -6,3 +6,4 @@ body{ margin:0; padding:0; background-color:#eceff4; }
 .footer_kaio { position:absolute; bottom:0; background-color: #2980b9 !important; width: 100%; }
 .margin_negative{ margin-top: -4%;  }
 td > img{cursor: pointer;}
+.linha_vazia{text-align: center;}
