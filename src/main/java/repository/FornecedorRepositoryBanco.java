@@ -39,8 +39,8 @@ public class FornecedorRepositoryBanco{
 
 		try {
 			String sql = "SELECT * FROM fornecedor ORDER BY nome_razao";
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			ResultSet result = ps.executeQuery();
+			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
+			ResultSet result = prepareStatement.executeQuery();
 
 			while (result.next()) {
 				int id 				= result.getInt("id");
@@ -61,7 +61,6 @@ public class FornecedorRepositoryBanco{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return lista;
 	}
 

@@ -1,4 +1,4 @@
-let xhttp = new XMLHttpRequest();
+var xhttp = new XMLHttpRequest();
 var path_principal = "";
 var id_sendo_alterado = "";
 
@@ -8,9 +8,9 @@ function acessa_modulo(caminho){
 	path_principal = caminho;
 
 	xhttp.onreadystatechange = function() { document.getElementById("conteudo_menu").innerHTML = this.responseText; };
-    xhttp.open("GET", "./conteudo/"+caminho+"/index.html", false);
+    xhttp.open("GET", "./conteudo/"+path_principal+"/index.html", false);
     xhttp.send();
-	
+
 	carrega_tabela_principal();
 
     $(".menu_superior").removeClass("active");
@@ -28,26 +28,54 @@ function acessa_sub_modulo(caminho){
 			elementos.forEach(function(e){
 				var campo_valor = e.split(':');
 				if( campo_valor[0] === "id" ){
-					// não preciso fazer nada pois ja tenho o ID
+					
+					// não preciso fazer nada pois ja tenho o ID na variavel -> id_sendo_alterado
+				
 				}else if( campo_valor[0] === "nomerazao" ){
+					
 					document.getElementById("nome_razao").value = campo_valor[1];
 					console.log("Nome Razao: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "endereco" ){
+					
 					document.getElementById("endereco").value = campo_valor[1];
+					console.log("Endereço: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "telefone" ){
+					
 					document.getElementById("telefone").value = campo_valor[1];
+					console.log("Telefone: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "email" ){
+					
 					document.getElementById("email").value = campo_valor[1];
+					console.log("E-mail: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "cpfcnpj" ){
+					
 					document.getElementById("cpf_cnpj").value = campo_valor[1];
+					console.log("CPF CNPJ: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "rgie" ){
+					
 					document.getElementById("rg_ie").value = campo_valor[1];
+					console.log("RG IE: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "cep" ){
+					
 					document.getElementById("cep").value = campo_valor[1];
+					console.log("CEP: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "contato" ){
+					
 					document.getElementById("contato").value = campo_valor[1];
+					console.log("Contato: "+campo_valor[1]);
+				
 				}else if( campo_valor[0] === "infoadd" ){
+					
 					document.getElementById("info_add").value = campo_valor[1];
+					console.log("Info ADD: "+campo_valor[1]);
+				
 				}
 				document.getElementById("btn_alterar").setAttribute('onclick', 'objeto.update('+id_sendo_alterado+')');
 			});
@@ -64,34 +92,60 @@ function carrega_tabela_principal(){
         	var aux = this.responseText.replace('[{','');
 				aux = aux.replace('}]','');
 
+			var coluna_nome_razao = "";
+			var coluna_email = "";
+			var coluna_telefone = "";
+
 			if( aux.indexOf('},{') == -1 ){ // string de jSon
-				// fazer ainda
+				// ou é um ou nenhum! testar se for um insiro somente uma coluna com os dados, se for nenhum coluna informando vazio
 			}else{ // lista de jSon
-				var conteudo_tabela = "";
-				let elementos_internos = "";
+				var linha_tabela 	= "";
+				var elementos_internos 	= "";
+
 				elementos = aux.split('},{');
 				elementos.forEach(function(e){
 					console.log("Elemento: "+e);
-					let id_da_vez = "";
+
+					id_da_vez = "";
+					coluna_nome_razao = "";
+					coluna_email = "";
+					coluna_telefone = "";
+
 					elementos_internos = e.split(',');
+
 					elementos_internos.forEach(function(ei){
 						var campo_valor = ei.split(':');
 						if( campo_valor[0] === "id" ){
-							conteudo_tabela += '<tr id="'+campo_valor[1]+'">';
+							
+							linha_tabela += '<tr id="linha_'+campo_valor[1]+'">';
+							console.log("Criando TR Tabela com ID: "+campo_valor[1]);
 							id_da_vez = campo_valor[1];
+						
 						}else if( campo_valor[0] === "nomerazao" ){
-							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
+							
+							coluna_nome_razao = '<td>'+campo_valor[1]+'</td>';
+							console.log("Coluna Nome Razão: "+campo_valor[1]);
+						
 						}else if( campo_valor[0] === "email" ){
-							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
+							
+							coluna_email = '<td>'+campo_valor[1]+'</td>';
+							console.log("Coluna E-mail: "+campo_valor[1]);
+						
 						}else if( campo_valor[0] === "telefone" ){
-							conteudo_tabela += '<td align="center">'+campo_valor[1]+'</td>';
+							
+							coluna_telefone = '<td align="center">'+campo_valor[1]+'</td>';
+							console.log("Coluna Telefone: "+campo_valor[1]);
+						
 						}
 					}); // fim foreach elementos internos
-					conteudo_tabela += '<td align="center"> <img title="Alterar Cliente" src="media/icons/update.png" width="30" height="30" onclick="objeto.update('+id_da_vez+')"> <img title="Excluir Cliente" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove('+id_da_vez+')"> </td>';
-					conteudo_tabela += '</tr>';
+					linha_tabela += coluna_nome_razao+coluna_email+coluna_telefone;
+					linha_tabela += '<td align="center"> <img title="Alterar "'+path_principal+'"" src="media/icons/update.png" width="30" height="30" onclick="objeto.update('+id_da_vez+')"> <img title="Excluir "'+path_principal+'"" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove('+id_da_vez+')"> </td>';
+					linha_tabela += '</tr>';
+					
+					console.log("Finaliza criação de linha com id: "+id_da_vez);
 					indice++;
 				}); // fim foreach elementos
-				document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
+				document.getElementById("corpo_tabela_index").innerHTML = linha_tabela;
 			} // fim else
         }
     };
@@ -117,6 +171,7 @@ var objeto = new function(){
 			xhttp.send("nome_razao="+nome_razao+"&endereco="+endereco+"&telefone="+telefone+"&email="+email+"&cpf_cnpj="+cpf_cnpj+"&rg_ie="+rg_ie+"&cep="+cep+"&contato="+contato+"&info_add="+info_add);
 
 			alert(path_principal+" cadastrado com sucesso!"); // retorno ao usuário
+
 			acessa_modulo(path_principal); // volta pra index principal do modulo ativo
 		}else{
 			alert("Para prosseguir é obrigatório preencher todos os campos!");
@@ -141,6 +196,9 @@ var objeto = new function(){
 				xhttp.send();
 
 				id_sendo_alterado = "";
+
+				alert(path_principal+" alterado com sucesso!");
+
 				acessa_modulo(path_principal);
 			}else{
 				alert("Para prosseguir é obrigatório preencher todos os campos!");
@@ -155,8 +213,11 @@ var objeto = new function(){
 		if(confirm("Deseja realmente remover esse "+path_principal)){
 			xhttp.open("DELETE", "/sistema_financeiro_2017_A/"+path_principal+"?id="+identificador, true);
 			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xhttp.send()
-			acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
+			xhttp.send();
+			
+			alert(path_principal+" removido com sucesso!");
+			
+			document.getElementById("linha_"+identificador).parentNode.removeChild(document.getElementById("linha_"+identificador));
 		}
 	}
 }
