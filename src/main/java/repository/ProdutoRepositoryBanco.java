@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import model.Cliente;
 import model.Produto;
 import model.Servico;
 import utils.RottaUtils;
@@ -94,13 +95,10 @@ public class ProdutoRepositoryBanco {
 
 	public void excluir(int id) {
 		try {
-			String sql = "delete from produto where id=?";
+			String sql = "DELETE FROM produto WHERE id_produto = "+id;
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
-			prepareStatement.setInt(1, id);
-			prepareStatement.execute();
-
+			prepareStatement.execute();			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -110,23 +108,12 @@ public class ProdutoRepositoryBanco {
 		List<Produto> lista = new ArrayList<>();
 
 		try {
-			String sql = "select * from produto order by descricao";
-			/*
-			 * if(serv.getDescricao() != null && !serv.getDescricao().equals("")
-			 * ) sql = sql.concat(serv.getDescricao()); if(serv.getTipo() !=
-			 * null && !serv.getTipo().equals("")) sql =
-			 * sql.concat(" AND ").concat(sql); if(serv.getValorServico() !=
-			 * null) sql = sql.concat(" AND ").concat(sql);
-			 * if(serv.getValorMax() != null) sql =
-			 * sql.concat(" AND ").concat(sql); if(serv.getValorMin() != null)
-			 * sql = sql.concat(" AND ").concat(sql);
-			 */
-
-			// sql = sql.concat (" order by descricao");
+			String sql = "select * from produto order by descricao";			
 			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
 			ResultSet result = prepareStatement.executeQuery();
 
-			while (result.next()) {				
+			while (result.next()) {			
+				int id 				= result.getInt("id_produto");
 				String descricao = result.getString("descricao");
 				String codbarras = result.getString("codbarras");
 				Integer id_fornecedor = result.getInt("id_fornecedor");
@@ -150,7 +137,8 @@ public class ProdutoRepositoryBanco {
 						precominvenda, precomaxvenda, comissaovenda, qtdestoque, qtdminestoque, altura, peso, largura,
 						profundidade, id_medidaproduto, id_tipoproduto, id_funcionario, validade);
 
-				//lista.addAll((Collection<? extends Produto>) RottaUtils.populaResult(new Produto(), result));
+				produto.setId_produto(id);
+				lista.add(produto);
 			}
 
 		} catch (SQLException e) {
@@ -159,5 +147,43 @@ public class ProdutoRepositoryBanco {
 		}
 
 		return lista;
+	}
+	
+	public Produto buscarPorId(Integer id) {
+		try {
+			String sql = "SELECT * FROM produto WHERE id_produto = "+id;
+			PreparedStatement prepareStatement = conexao.prepareStatement(sql);
+			ResultSet result = prepareStatement.executeQuery();
+			if( result.next() ){
+				String descricao = result.getString("descricao");
+				String codbarras = result.getString("codbarras");
+				Integer id_fornecedor = result.getInt("id_fornecedor");
+				Double precocusto = result.getDouble("precocusto");
+				Double precovenda = result.getDouble("precovenda");
+				Double precominvenda = result.getDouble("precominvenda");
+				Double precomaxvenda = result.getDouble("precomaxvenda");
+				Double comissaovenda = result.getDouble("comissaovenda");
+				Double qtdestoque = result.getDouble("qtdestoque");
+				Double qtdminestoque = result.getDouble("qtdminestoque");
+				Double altura = result.getDouble("altura");
+				Double peso = result.getDouble("peso");
+				Double largura = result.getDouble("largura");
+				Double profundidade = result.getDouble("profundidade");
+				Integer id_medidaproduto = result.getInt("id_medidaproduto");
+				Integer id_tipoproduto = result.getInt("id_tipoproduto");
+				Integer id_funcionario = result.getInt("id_funcionario");
+				String validade = result.getString("validade");
+
+				Produto produto = new Produto(descricao, codbarras, id_fornecedor, precocusto, precovenda,
+						precominvenda, precomaxvenda, comissaovenda, qtdestoque, qtdminestoque, altura, peso, largura,
+						profundidade, id_medidaproduto, id_tipoproduto, id_funcionario, validade);
+				produto.setId_produto(id);
+				
+				return produto;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
