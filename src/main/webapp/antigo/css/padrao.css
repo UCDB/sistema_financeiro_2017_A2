@@ -1,0 +1,7 @@
+body{ margin:0; padding:0; background-color:#eceff4; }
+.span_topo_modulo{ float: left; color: #ecf0f1; margin-left: 42%; font-size: 35px; }
+.img_index_home_container{ margin-top: 10%; float: left; margin-left: 23%; }
+.btn_salvar{ background-color: #2980b9 !important;  }
+.btn_salvar:hover{ background-color: #55a5d9 !important; }
+.footer_kaio { position:absolute; bottom:0; background-color: #2980b9 !important; width: 100%; }
+.margin_negative{ margin-top: -4%;  }

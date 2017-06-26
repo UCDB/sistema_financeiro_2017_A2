@@ -2,43 +2,77 @@ package model;
 
 public class Funcionario {
 	private Integer id;
-	private String nome, endereco, telefone, email, cpf, rg, cep, contato, info_add;
-
-	public Funcionario(String nome, String endereco, String telefone, String email, String cpf, String rg, String cep, String contato, String info_add ){
-		this.nome 		= nome;
-		this.endereco 	= endereco;
-		this.telefone 	= telefone;
-		this.email 		= email;
-		this.cpf 		= cpf;
-		this.rg 		= rg;
-		this.cep 		= cep;
-		this.contato 	= contato;
-		this.info_add 	= info_add;
+	
+	private String nome,endereco,cpf,rg,telefone,cep,email,infoAdc;
+	
+	public Funcionario(){
+		
 	}
-
-	/* Getters */
+	public Funcionario(String nome, String endereco, String cpf, String rg, String telefone, String cep, String email, String infoAdc ){
 	
-	public Integer getId() 						{return id;}
-	public String getNome() 					{return nome;}
-	public String getEndereco() 				{return endereco;}
-	public String getTelefone() 				{return telefone;}
-	public String getEmail() 					{return email;}
-	public String getCpf() 						{return cpf;}
-	public String getRg() 						{return rg;}
-	public String getCep() 						{return cep;}
-	public String getContato() 					{return contato;}
-	public String getInfoAdd() 					{return info_add;}
-
-	/* Setters */
+		this.nome = nome;
+		this.endereco = endereco;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.telefone = telefone;
+		this.cep = cep;
+		this.email = email;
+		this.infoAdc = infoAdc;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getRg() {
+		return rg;
+	}
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getInfoAdc() {
+		return infoAdc;
+	}
+	public void setInfoAdc(String infoAdc) {
+		this.infoAdc = infoAdc;
+	}
 	
-	public void setId(Integer id) 				{this.id = id;}
-	public void setNome(String nome) 			{this.nome = nome;}
-	public void setEndereco(String endereco) 	{this.endereco = endereco;}
-	public void setTelefone(String telefone) 	{this.telefone = telefone;}
-	public void setEmail(String email) 			{this.email = email;}
-	public void setCpf(String cpf) 				{this.cpf = cpf;}
-	public void setRg(String rg) 				{this.rg = rg;}
-	public void setCep(String cep) 				{this.cep = cep;}
-	public void setContato(String contato) 		{this.contato = contato;}
-	public void setInfoAdd(String info_add) 	{this.info_add = info_add;}
+	
 }

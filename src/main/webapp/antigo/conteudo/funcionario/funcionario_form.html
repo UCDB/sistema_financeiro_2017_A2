@@ -1,0 +1,128 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Batgrupo</title>
+        <link rel="stylesheet" href="../../css/padrao.css">
+		<link rel="stylesheet" href="../../css/materialize.min.css">
+	</head>
+	<body>
+		<div id="container" class="row">
+            <div class="s12">
+                <nav class="nav-extended">
+                    <div class="nav-wrapper" style="background-color:#2980b9;">
+                        <a href="../../inicio.html" class="brand-logo">
+                        	<img src="../../media/icons/icon.png" width="90" height="65">
+                        </a>
+                        <!--<span class="span_topo_modulo">Funcionários</span>-->
+                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="../home/index.html">Início</a></li>
+                            <li><a href="../cliente/index.html">Clientes</a></li>
+                            <li><a href="../fornecedor/index.html">Fornecedores</a></li>
+                            <li class="active"><a href="index.html">Funcionários</a></li>
+                        </ul>
+                        <ul class="side-nav" id="mobile-demo">
+                            <li><a href="../home/index.html">Início</a></li>
+                            <li><a href="../cliente/index.html">Clientes</a></li>
+                            <li><a href="../fornecedor/index.html">Fornecedores</a></li>
+                            <li class="active"><a href="index.html">Funcionários</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-content" style="background-color:#4c9689;">
+                        <ul class="tabs tabs-transparent">
+                            <li class="tab"><a href="index.html">Inicio</a></li>
+                            <li class="tab"><a class="active" href="">Novo Funcionário</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div> <!-- s12 topo -->
+
+            <div class="col s12">
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col s1"></div>
+                    <form class="col s10" action="javascript:void(0)" onsubmit="funcionario.persistir()"> <div class="col s12">
+
+                        <div class="input-field col s6">
+                            <input id="nome" name="nome" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="nome">Nome</label>
+                        </div>
+                        
+                        <div class="input-field col s6">
+                            <input id="endereco" name="endereco" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="endereco">Endereço</label>
+                        </div>
+                        
+                        <div class="input-field col s6">
+                            <input id="telefone" name="telefone" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="telefone">Celular / Telefone</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input id="email" name="email" type="email" class="validate" maxlength="200">
+                            <label class="margin_negative" for="email">E-mail</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input id="cpf" name="cpf" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="cpf">CPF</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input id="rg" name="rg" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="rg">RG</label>
+                        </div>
+
+                        <div class="input-field col s4">
+                            <input id="cep" name="cep" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="cep">CEP</label>
+                        </div>
+
+                        <div class="input-field col s4">
+                            <input id="contato" name="contato" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="contato">Contato</label>
+                        </div>
+
+                        <div class="input-field col s4">
+                            <input id="info_add" name="info_add" type="text" class="validate" maxlength="200">
+                            <label class="margin_negative" for="info_add">Informações Adicionais</label>
+                        </div>
+
+                        <div class="col s12" align="center">
+                        	<input type="submit" class="waves-effect waves-light btn-large btn_salvar" value="Salvar Funcionário">
+                        </div>
+
+					</div> </form>
+                    <div class="col s1"></div>
+                </div>
+            </div>
+		</div>
+    </body>
+    <script>
+    	var xhttp = new XMLHttpRequest();
+    
+    	var funcionario = new function(){
+    		this.persistir = function(){
+    			var nome_funcionario 		= document.getElementById("nome").value;
+    			var endereco_funcionario 	= document.getElementById("endereco").value;
+    			var telefone_funcionario 	= document.getElementById("telefone").value;
+    			var email_funcionario 		= document.getElementById("email").value;
+    			var cpf_funcionario 		= document.getElementById("cpf").value;
+    			var rg_funcionario 			= document.getElementById("rg").value;
+    			var cep_funcionario 		= document.getElementById("cep").value;
+    			var contato_funcionario 	= document.getElementById("contato").value;
+    			var info_add_funcionario 	= document.getElementById("info_add").value;
+    			
+    			xhttp.open("POST", "/sistema_financeiro_2017_A/funcionario", true);
+    			xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    			xhttp.send("nome="+nome_funcionario+"&endereco="+endereco_funcionario+"&telefone="+telefone_funcionario+"&email="+email_funcionario+"&cpf="+cpf_funcionario+"&rg="+rg_funcionario+"&cep="+cep_funcionario+"&contato="+contato_funcionario+"&info_add="+info_add_funcionario);
+    		}
+    	}
+    </script>
+    <footer class="page-footer footer_kaio" style="background-color:#4c9689 !important;">
+        <div class="footer-copyright" align="center" style="background-color: #2980b9 !important;">
+            <div class="container" align="center">
+                © 2017 Copyright Alunos TAP/RAD TADS 5º Semestre
+            </div>
+        </div>
+    </footer>
+</html>

@@ -22,17 +22,17 @@ public class FornecedorController extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String razao_social = req.getParameter("nome");
+		String nome_razao 	= req.getParameter("nome_razao");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cnpj 		= req.getParameter("cpf");
-		String ie 			= req.getParameter("rg");
+		String cpf_cnpj 	= req.getParameter("cpf_cnpj");
+		String rg_ie 		= req.getParameter("rg_ie");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add 	= req.getParameter("info_add");
 
-		Fornecedor fornecedor = new Fornecedor(razao_social,endereco,telefone,email,cnpj,ie,cep,contato,info_add);
+		Fornecedor fornecedor = new Fornecedor(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 		frb.cadastrar(fornecedor);
 		try {
 			resp.getWriter().println(jsonHelper.gerarJson(fornecedor));
@@ -71,17 +71,17 @@ public class FornecedorController extends HttpServlet{
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id 			= Integer.parseInt(req.getParameter("id"));
-		String razao_social	= req.getParameter("nome");
+		String nome_razao	= req.getParameter("nome_razao");
 		String endereco 	= req.getParameter("endereco");
 		String telefone 	= req.getParameter("telefone");
 		String email 		= req.getParameter("email");
-		String cnpj 		= req.getParameter("cpf");
-		String ie 			= req.getParameter("rg");
+		String cpf_cnpj 	= req.getParameter("cpf_cnpj");
+		String rg_ie 		= req.getParameter("rg_ie");
 		String cep 			= req.getParameter("cep");
 		String contato 		= req.getParameter("contato");
 		String info_add 	= req.getParameter("info_add");
 
-		Fornecedor fornecedor = new Fornecedor(razao_social,endereco,telefone,email,cnpj,ie,cep,contato,info_add);
+		Fornecedor fornecedor = new Fornecedor(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 		fornecedor.setId(id);
 
 		frb.alterar(fornecedor);

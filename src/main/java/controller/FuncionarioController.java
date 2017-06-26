@@ -21,17 +21,17 @@ public class FuncionarioController extends HttpServlet {
 
 	@Override
 	protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String 	nome 		= req.getParameter("nome");
+		String 	nome_razao	= req.getParameter("nome_razao");
 		String	endereco 	= req.getParameter("endereco");
 		String	telefone 	= req.getParameter("telefone");
 		String	email 		= req.getParameter("email");
-		String	cpf 		= req.getParameter("cpf");
-		String	rg 			= req.getParameter("rg");
+		String	cpf_cnpj	= req.getParameter("cpf_cnpj");
+		String	rg_ie		= req.getParameter("rg_ie");
 		String	cep 		= req.getParameter("cep");
 		String	contato		= req.getParameter("contato");
 		String	info_add	= req.getParameter("info_add");
 
-		Funcionario f = new Funcionario(nome, endereco, telefone, email, cpf, rg, cep, contato, info_add);
+		Funcionario f = new Funcionario(nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add);
 		frb.cadastrar(f);
 
 		try {
@@ -73,17 +73,17 @@ public class FuncionarioController extends HttpServlet {
 
 	public void doPut (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		int id 				= Integer.parseInt(req.getParameter("id"));
-		String 	nome 		= req.getParameter("nome");
+		String 	nome_razao 	= req.getParameter("nome_razao");
 		String	endereco 	= req.getParameter("endereco");
 		String	telefone 	= req.getParameter("telefone");
 		String	email 		= req.getParameter("email");
-		String	cpf 		= req.getParameter("cpf");
-		String	rg 			= req.getParameter("rg");
+		String	cpf_cnpj 	= req.getParameter("cpf_cnpj");
+		String	rg_ie 		= req.getParameter("rg_ie");
 		String	cep 		= req.getParameter("cep");
 		String	contato		= req.getParameter("contato");
 		String	info_add	= req.getParameter("info_add");
 
-		Funcionario func = new Funcionario(nome, endereco, telefone, email, cpf, rg, cep, contato, info_add);
+		Funcionario func = new Funcionario(nome_razao, endereco, telefone, email, cpf_cnpj, rg_ie, cep, contato, info_add);
 		func.setId(id);
 		frb.alterar(func);
 	}

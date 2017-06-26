@@ -4,3 +4,4 @@
 .project
 /bin/
 
+/src/main/webapp/node_modules
