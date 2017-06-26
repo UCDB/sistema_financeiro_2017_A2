@@ -66,6 +66,8 @@ public class ClienteController extends HttpServlet {
 		Cliente cl = new Cliente(nome_razao,endereco,telefone,email,cpf_cnpj,rg_ie,cep,contato,info_add);
 		cl.setId(id);
 
+		System.out.println("Aqui");
+		
 		crb.alterar(cl);
 	}
 

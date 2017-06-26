@@ -28,7 +28,7 @@ public class ClienteRepositoryBanco {
 	public void alterar(Cliente cl){
 		String sql = "UPDATE cliente "
 				   + "SET nome_razao = ?, endereco = ?, telefone = ?, email = ?, cpf_cnpj = ?, rg_ie = ?, cep = ?, contato = ?, info_add = ? "
-				   + "WHERE id=?";
+				   + "WHERE id = ?";
 		try {
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setString(1, cl.getNomeRazao());
@@ -41,7 +41,9 @@ public class ClienteRepositoryBanco {
 			ps.setString(8, cl.getContato());
 			ps.setString(9, cl.getInfoAdd());
 			ps.setInt(10, cl.getId());
-			
+		
+			System.out.println("SQL: "+sql);
+
 			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
