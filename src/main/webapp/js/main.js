@@ -222,17 +222,16 @@ function carrega_tabela_servico(){
 					elementos_internos.forEach(function(ei){
 						var campo_valor = ei.split(':');
 						if( campo_valor[0] === "id_servico" ){
-							conteudo_tabela += '<tr id_servico="'+campo_valor[1]+'">';
 							id_da_vez = campo_valor[1];
+						}else if( campo_valor[0] === "id_tiposervico" ){
+							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
 						}else if( campo_valor[0] === "descricao" ){
 							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
 						}else if( campo_valor[0] === "valorservico" ){
-							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
-						}else if( campo_valor[0] === "id_tiposervico" ){
 							conteudo_tabela += '<td align="center">'+campo_valor[1]+'</td>';
 						}
 					}); // fim foreach elementos internos
-					conteudo_tabela += '<td align="center"> <img title="Alterar Servico" src="media/icons/update.png" width="30" height="30" onclick="objetoServ.update('+id_da_vez+')"> <img title="Excluir Servico" src="media/icons/trash.png" width="30" height="30" onclick="objetoServ.remove('+id_da_vez+')"> </td>';
+					conteudo_tabela += '<td align="center"> <img title="Excluir Servico" src="media/icons/trash.png" width="30" height="30" onclick="objetoServ.remove('+id_da_vez+')"> </td>';
 					conteudo_tabela += '</tr>';
 					indice++;
 				}); // fim foreach elementos
@@ -355,41 +354,37 @@ function acessa_sub_modulo_caixa(caminho){
 }
 
 function carrega_tabela_caixa(){		
-	xhttp.onreadystatechange = function() {
+	xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-        	var indice = 0;
-        	var aux = this.responseText.replace('[{','');
-				aux = aux.replace('}]','');
+            var indice = 0;
+            var aux = this.responseText.replace('[{', '');
+            aux = aux.replace('}]', '');
 
-			if( aux.indexOf('},{') == -1 ){ // string de jSon
-				// fazer ainda
-			}else{ // lista de jSon
-				var conteudo_tabela = "";
-				let elementos_internos = "";
-				elementos = aux.split('},{');
-				elementos.forEach(function(e){
-					console.log("Elemento: "+e);
-					let id_da_vez = "";
-					elementos_internos = e.split(',');
-					elementos_internos.forEach(function(ei){
-						var campo_valor = ei.split(':');
-						if( campo_valor[0] === "id_caixa" ){
-							conteudo_tabela += '<tr id_caixa="'+campo_valor[1]+'">';
-							id_da_vez = campo_valor[1];
-						}else if( campo_valor[0] === "data" ){
-							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
-						}else if( campo_valor[0] === "valor_caixa" ){
-							conteudo_tabela += '<td>'+campo_valor[1]+'</td>';
-						}else if( campo_valor[0] === "formapagamento" ){
-							conteudo_tabela += '<td align="center">'+campo_valor[1]+'</td>';
-						}
-					}); // fim foreach elementos internos
-					conteudo_tabela += '<td align="center"> <img title="Alterar Caixa" src="media/icons/update.png" width="30" height="30" onclick="objetoCaixa.update('+id_da_vez+')"> <img title="Excluir Caixa" src="media/icons/trash.png" width="30" height="30" onclick="objetoCaixa.remove('+id_da_vez+')"> </td>';
-					conteudo_tabela += '</tr>';
-					indice++;
-				}); // fim foreach elementos
-				document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
-			} // fim else
+            if (aux.indexOf('},{') == -1) { // string de jSon
+                // fazer ainda
+            } else { // lista de jSon
+                var conteudo_tabela = "";
+                let elementos_internos = "";
+                elementos = aux.split('},{');
+                elementos.forEach(function (e) {
+                    console.log("Elemento: " + e);
+                    let id_da_vez = "";
+                    elementos_internos = e.split(',');
+                    elementos_internos.forEach(function (ei) {
+                        var campo_valor = ei.split(':');
+                        if (campo_valor[0] === "id_caixa") {                            
+                            id_da_vez = campo_valor[1];                      
+                        } else if (campo_valor[0] === "formapagamento") {
+                            conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
+                        }
+						
+                    }); // fim foreach elementos internos
+                    conteudo_tabela += '<td align="center"> <img title="Excluir Produto" src="media/icons/trash.png" width="30" height="30" onclick="objetoProduto.remove(' + id_da_vez + ')"> </td>';
+                    conteudo_tabela += '</tr>';
+                    indice++;
+                }); // fim foreach elementos
+                document.getElementById("corpo_tabela_index").innerHTML = conteudo_tabela;
+            } // fim else
         }
     };
     xhttp.open("GET", "/sistema_financeiro_2017_A/"+path_principal+"?id=all", true);
@@ -574,7 +569,7 @@ function carrega_tabela_produto() {
                     elementos_internos.forEach(function (ei) {
                         var campo_valor = ei.split(':');
                         if (campo_valor[0] === "id_produto") {
-                            conteudo_tabela += '<tr id_produto="' + campo_valor[1] + '">';
+                            
                             id_da_vez = campo_valor[1];
                         } else if (campo_valor[0] === "descricao") {
                             conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
@@ -584,7 +579,7 @@ function carrega_tabela_produto() {
                             conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
                         }
                     }); // fim foreach elementos internos
-                    conteudo_tabela += '<td align="center"> <img title="Alterar Produto" src="media/icons/update.png" width="30" height="30" onclick="objetoProduto.update(' + id_da_vez + ')"> <img title="Excluir Produto" src="media/icons/trash.png" width="30" height="30" onclick="objetoProduto.remove(' + id_da_vez + ')"> </td>';
+                    conteudo_tabela += '<td align="center"> <img title="Excluir Produto" src="media/icons/trash.png" width="30" height="30" onclick="objetoProduto.remove(' + id_da_vez + ')"> </td>';
                     conteudo_tabela += '</tr>';
                     indice++;
                 }); // fim foreach elementos
