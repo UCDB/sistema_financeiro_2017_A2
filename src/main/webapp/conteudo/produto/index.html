@@ -1,7 +1,7 @@
 <div class="nav-content" style="background-color:#4c9689;">
     <ul class="tabs tabs-transparent">
         <li class="tab"><a onclick="acessa_modulo('produto');">Inicio</a></li>
-        <li class="tab"><a onclick="acessa_sub_modulo('create');">Novo Produto</a></li>
+        <li class="tab"><a onclick="acessa_sub_modulo_produto('create');">Novo Produto</a></li>
     </ul>
 </div>
 <div class="s12" id="conteudo_submenu">
@@ -11,31 +11,14 @@
     		<table class="bordered striped">
 				<thead>
 					<tr>
-						<th>Nome</th>
-						<th width="25%"></th>
-						<th width="15%">Valor</th>
+						<th>Descrição</th>
+						<th width="25%">Preço de Venda</th>
+						<th width="15%">Quantidade em estoque</th>
 						<th width="10%">Opções</th>
 					</tr>
 				</thead>
-		        <tbody>
-					<tr>
-						<td>Teste 1</td>
-						<td>Teste</td>
-						<td align="center">Teste</td>
-						<td align="center">
-							<img title="Alterar Funcionário" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(1)">
-							<img title="Excluir Funcionário" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(1)">
-						</td>
-					</tr>
-					<tr>
-						<td>Teste 2</td>
-						<td>Teste</td>
-						<td align="center">Teste</td>
-						<td align="center">
-							<img title="Alterar Funcionário" src="media/icons/update.png" width="30" height="30" onclick="objeto.update(2)">
-							<img title="Excluir Funcionário" src="media/icons/trash.png" width="30" height="30" onclick="objeto.remove(2)">
-						</td>
-					</tr>
+		        <tbody id="corpo_tabela_index">
+				
 		        </tbody>
 			</table>
     	</div>

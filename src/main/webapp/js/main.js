@@ -479,25 +479,73 @@ function acessa_sub_modulo_produto(caminho) {
             elementos = this.responseText.split(',');
             elementos.forEach(function (e) {
                 var campo_valor = e.split(':');
-                if (campo_valor[0] === "id_caixa") {
+                if (campo_valor[0] === "id_produto") {
                     // não preciso fazer nada pois ja tenho o ID
-                } else if (campo_valor[0] === "data") {
-                    document.getElementById("data").value = campo_valor[1];
-                } else if (campo_valor[0] === "descricao_caixa") {
-                    document.getElementById("descricao_caixa").value = campo_valor[1];
-                } else if (campo_valor[0] === "valor_caixa") {
-                    document.getElementById("valor_caixa").value = campo_valor[1];
-                } else if (campo_valor[0] === "status") {
-                    document.getElementById("status").value = campo_valor[1];
-                } else if (campo_valor[0] === "formapagamento") {
-                    document.getElementById("formapagamento").value = campo_valor[1];
-                } else if (campo_valor[0] === "id_tipodespesa") {
-                    document.getElementById("id_tipodespesa").value = campo_valor[1];
-                } else if (campo_valor[0] === "id_cliente_caixa") {
-                    document.getElementById("id_cliente_caixa").value = campo_valor[1];
-                } else if (campo_valor[0] === "id_fornecedor") {
-                    document.getElementById("id_fornecedor").value = campo_valor[1];
+                } else if (campo_valor[0] === "descricao") {
+                    document.getElementById("descricao").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "codbarras") {
+                    document.getElementById("codbarras").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "precocusto") {
+                    document.getElementById("precocusto").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "precovenda") {
+                    document.getElementById("precovenda").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "precominvenda") {
+                    document.getElementById("precominvenda").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "precomaxvenda") {
+                    document.getElementById("precomaxvenda").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "comissaovenda") {
+                    document.getElementById("comissaovenda").value = campo_valor[1];
+
+                } else if (campo_valor[0] === "qtdestoque") {
+                    document.getElementById("qtdestoque").value = campo_valor[1];
                 }
+
+				else if (campo_valor[0] === "qtdminestoque") {
+                    document.getElementById("qtdminestoque").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "altura") {
+                    document.getElementById("altura").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "peso") {
+                    document.getElementById("peso").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "largura") {
+                    document.getElementById("largura").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "profundidade") {
+                    document.getElementById("profundidade").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "validade") {
+                    document.getElementById("validade").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "medidaproduto") {
+                    document.getElementById("medidaproduto").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "tipoproduto") {
+                    document.getElementById("tipoproduto").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "fornecedorCampo") {
+                    document.getElementById("fornecedorCampo").value = campo_valor[1];
+                }
+
+				else if (campo_valor[0] === "funcionarioCampo") {
+                    document.getElementById("funcionarioCampo").value = campo_valor[1];
+                }
+
                 document.getElementById("btn_alterar").setAttribute('onclick', 'objetoCaixa.update(' + id_sendo_alterado + ')');
             });
         }
@@ -525,18 +573,18 @@ function carrega_tabela_produto() {
                     elementos_internos = e.split(',');
                     elementos_internos.forEach(function (ei) {
                         var campo_valor = ei.split(':');
-                        if (campo_valor[0] === "id_caixa") {
-                            conteudo_tabela += '<tr id_caixa="' + campo_valor[1] + '">';
+                        if (campo_valor[0] === "id_produto") {
+                            conteudo_tabela += '<tr id_produto="' + campo_valor[1] + '">';
                             id_da_vez = campo_valor[1];
-                        } else if (campo_valor[0] === "data") {
+                        } else if (campo_valor[0] === "descricao") {
                             conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                        } else if (campo_valor[0] === "valor_caixa") {
+                        } else if (campo_valor[0] === "precovenda") {
                             conteudo_tabela += '<td>' + campo_valor[1] + '</td>';
-                        } else if (campo_valor[0] === "formapagamento") {
+                        } else if (campo_valor[0] === "qtdestoque") {
                             conteudo_tabela += '<td align="center">' + campo_valor[1] + '</td>';
                         }
                     }); // fim foreach elementos internos
-                    conteudo_tabela += '<td align="center"> <img title="Alterar Caixa" src="media/icons/update.png" width="30" height="30" onclick="objetoCaixa.update(' + id_da_vez + ')"> <img title="Excluir Caixa" src="media/icons/trash.png" width="30" height="30" onclick="objetoCaixa.remove(' + id_da_vez + ')"> </td>';
+                    conteudo_tabela += '<td align="center"> <img title="Alterar Produto" src="media/icons/update.png" width="30" height="30" onclick="objetoProduto.update(' + id_da_vez + ')"> <img title="Excluir Produto" src="media/icons/trash.png" width="30" height="30" onclick="objetoProduto.remove(' + id_da_vez + ')"> </td>';
                     conteudo_tabela += '</tr>';
                     indice++;
                 }); // fim foreach elementos
@@ -569,16 +617,16 @@ var objetoProduto = new function () {
         var fornecedor = document.getElementById("fornecedorCampo").value;
         var funcionario = document.getElementById("funcionarioCampo").value;
 
-        if (descricao != '' && codbarras != '' && precocusto != '' && precovenda != '' && precominvenda != '' && precomaxvenda != '' && comissaovenda != '' && qtdestoque != '' && qtdminestoque != '' && altura != '' && peso != '' && largura != '' && profundidade != '' && validade != '' && medidaproduto != '' && tipoproduto != '' && fornecedor != '' && funcionario != '') {
+        
             xhttp.open("POST", "/sistema_financeiro_2017_A/" + path_principal, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send("descricao=" + descricao + "&codbarras=" + codbarras + "&id_fornecedor=" + fornecedor + "&precocusto=" + precocusto + "&precovenda=" + precovenda + "&precominvenda=" + precominvenda + "&precomaxvenda=" + precomaxvenda + "&comissaovenda=" + comissaovenda + "&qtdestoque=" + qtdestoque + "&qtdminestoque=" + qtdminestoque + "&altura=" + altura + "&peso=" + peso + "&largura=" + largura + "&profundidade=" + profundidade + "&id_medidaproduto=" + medidaproduto + "&id_tipoproduto=" + tipoproduto + "&id_funcionario=" + funcionario + "&validade=" + validade);
 
             alert(path_principal + " cadastrado com sucesso!"); // retorno ao usuário
             acessa_modulo(path_principal); // volta pra index principal do modulo ativo
-        } else {
-            alert("Para prosseguir é obrigatório preencher todos os campos!");
-        }
+        
+           
+        
     }
 
     this.update = function (identificador) {
@@ -611,7 +659,7 @@ var objetoProduto = new function () {
 
     this.remove = function (identificador) {
         if (confirm("Deseja realmente remover esse " + path_principal)) {
-            xhttp.open("DEvarE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
+            xhttp.open("DELETE", "/sistema_financeiro_2017_A/" + path_principal + "?id=" + identificador, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send()
             acessa_modulo(path_principal); // mudar por remoção de linha somente - remover tr tabela
